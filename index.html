@@ -17,6 +17,12 @@
 
     <style>
 
+        /* Safely hide the admin tools without breaking the site logic */
+.admin-trigger, 
+.auth-overlay, 
+.editor-panel {
+    display: none !important;
+}
         :root {
 
             /* OVERHAULED: Dynamic theme foundations derived directly from the avatar aesthetic */
@@ -988,6 +994,10 @@ text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 </head>
 
 <body>
+
+    <button class="admin-trigger" id="editBtn" title="Admin Workspace Control Hub">
+    <i data-lucide="settings"></i>
+</button>
     <!-- AUTH MODAL SYSTEM -->
 
     <div class="auth-overlay" id="authOverlay">
