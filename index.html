@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Socials</title>
+
+    <!-- Vector Core Icons for clean modern typography -->
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+
+        :root {
+
+            /* OVERHAULED: Dynamic theme foundations derived directly from the avatar aesthetic */
+
+            --theme-hue: 120; /* Dynamically adjusted via JS */
+
+            --theme-sat: 50%;
+
+            
+
+            /* Ambient UI Gradients matching the dominant character profile */
+
+            --bg-gradient: linear-gradient(135deg, 
+
+                hsl(var(--theme-hue), var(--theme-sat), 5%) 0%, 
+
+                hsl(var(--theme-hue), var(--theme-sat), 8%) 50%, 
+
+                hsl(calc(var(--theme-hue) + 30), var(--theme-sat), 4%) 100%
+
+            );
+
+            
+
+            /* Transparent glass panels unified with the tint spectrum */
+
+            --card-bg: rgba(255, 255, 255, 0.08);
+
+            --card-border: rgba(255, 255, 255, 0.18);
+
+            --card-hover-bg: rgba(255, 255, 255, 0.15);
+
+            --text-main: #f8fafc;
+
+            --text-muted: hsla(var(--theme-hue), 15%, 75%, 0.7);
+
+            
+
+            /* Brand palettes adjusted for optimal contrast over tint overlays */
+
+            --youtube: #ff0055;
+
+            --twitch: #a15eff;
+
+            --instagram: #ff3385;
+
+            --tiktok-red: #ff0050;
+
+            --tiktok-blue: #00f2fe;
+
+            --discord: #5865f2;
+
+
+            /* Maximum Spring Curve Physics (Ultra-bouncy rubber-band overshoot) */
+
+            --spring-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+            --spring-smooth: cubic-bezier(0.25, 1, 0.4, 1);
+
+
+            --glow-blur: 28px;
+
+            --glow-gradient: linear-gradient(45deg, var(--twitch), var(--tiktok-blue), var(--youtube));
+
+        }
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        }
+
+
+        body {
+
+            background: var(--bg-gradient);
+
+            background-size: 400% 400%;
+
+            animation: gradientBG 18s ease infinite;
+
+            color: var(--text-main);
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 6rem 1rem 5rem; 
+
+            overflow-x: hidden;
+
+            position: relative;
+
+            transition: background 0.8s ease;
+
+        }
+
+
+        @keyframes gradientBG {
+
+            0% { background-position: 0% 50%; }
+
+            50% { background-position: 100% 50%; }
+
+            100% { background-position: 0% 50%; }
+
+        }
+
+
+        /* Settings Gear (Top Right Corner) */
+
+        .admin-trigger {
+
+            position: absolute;
+
+            top: 1.5rem;
+
+            right: 1.5rem;
+
+            background: hsla(var(--theme-hue), var(--theme-sat), 20%, 0.2);
+
+            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.15);
+
+            color: var(--text-muted);
+
+            padding: 0.7rem;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: all 0.5s var(--spring-bounce);
+
+            backdrop-filter: blur(8px);
+
+            -webkit-backdrop-filter: blur(8px);
+
+            z-index: 100;
+
+        }
+
+
+        .admin-trigger:hover {
+
+            transform: scale(1.22) rotate(45deg);
+
+            background: hsla(var(--theme-hue), var(--theme-sat), 40%, 0.3);
+
+            color: var(--text-main);
+
+            box-shadow: 0 0 25px hsla(var(--theme-hue), var(--theme-sat), 50%, 0.25);
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 450px;
+
+            text-align: center;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 0;
+
+        }
+
+
+        /* Profile Section Details */
+
+        .profile {
+
+            margin-bottom: 2.5rem;
+
+        }
+
+
+        .avatar-container {
+
+            position: relative;
+
+            width: 115px;
+
+            height: 115px;
+
+            margin: 0 auto 1.2rem;
+
+            opacity: 0;
+
+            transform: scale(0.2);
+
+            animation: popIn 0.9s var(--spring-bounce) forwards;
+
+        }
+
+
+        @keyframes popIn {
+
+            to { opacity: 1; transform: scale(1); }
+
+        }
+
+
+        .avatar-frame {
+
+            width: 100%;
+
+            height: 100%;
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .avatar {
+
+            width: 100%;
+
+            height: 100%;
+
+            border-radius: 32% 68% 68% 32% / 40% 36% 64% 60%;
+
+            object-fit: cover;
+
+            border: 2px solid hsla(var(--theme-hue), var(--theme-sat), 60%, 0.25);
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 3;
+
+            animation: fluidBlob 8s ease-in-out infinite alternate;
+
+            transition: opacity 0.3s var(--spring-smooth), transform 0.5s var(--spring-bounce);
+
+        }
+
+
+        .avatar-brand-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 4;
+
+            opacity: 0;
+
+            transform: scale(0.3);
+
+            transition: opacity 0.3s var(--spring-smooth), transform 0.5s var(--spring-bounce);
+
+            pointer-events: none;
+
+        }
+
+
+        .avatar-brand-overlay img {
+
+            width: 52px;
+
+            height: 52px;
+
+            object-fit: contain;
+
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+
+        }
+
+
+        .avatar-container.swapped .avatar {
+
+            opacity: 0;
+
+            transform: scale(0.6);
+
+        }
+
+        .avatar-container.swapped .avatar-brand-overlay {
+
+            opacity: 1;
+
+            transform: scale(1.15);
+
+        }
+
+
+        @keyframes fluidBlob {
+
+            0% { border-radius: 32% 68% 68% 32% / 40% 36% 64% 60%; }
+
+            50% { border-radius: 56% 44% 33% 67% / 61% 38% 62% 39%; }
+
+            100% { border-radius: 32% 68% 68% 32% / 40% 36% 64% 60%; }
+
+        }
+
+
+        /* Ambient glow syncing directly to the calculated artwork core */
+
+        .avatar-glow {
+
+            position: absolute;
+
+            top: -6px;
+
+            left: -6px;
+
+            width: 112%;
+
+            height: 112%;
+
+            background: var(--glow-gradient);
+
+            filter: blur(var(--glow-blur));
+
+            opacity: 0.65;
+
+            z-index: 1;
+
+            border-radius: 50%;
+
+            mix-blend-mode: screen;
+
+            animation: breatheGlow 4s ease-in-out infinite alternate;
+
+            transition: background 0.5s var(--spring-smooth), filter 0.4s ease;
+
+        }
+
+
+        @keyframes breatheGlow {
+
+            0% { opacity: 0.5; transform: scale(0.92); filter: blur(calc(var(--glow-blur) - 4px)); }
+
+            100% { opacity: 0.8; transform: scale(1.08); filter: blur(calc(var(--glow-blur) + 8px)); }
+
+        }
+
+
+        .profile h1 {
+
+            font-size: 1.85rem;
+
+            font-weight: 800;
+
+            letter-spacing: -0.03em;
+
+            margin-bottom: 0.4rem;
+
+            opacity: 0;
+
+            transform: translateY(25px);
+
+            animation: slideUpText 0.7s var(--spring-bounce) 0.15s forwards;
+
+            outline: none;
+
+            border-radius: 6px;
+
+            text-shadow: 0 4px 12px hsla(var(--theme-hue), var(--theme-sat), 4%, 0.5);
+
+        }
+
+
+        .profile p {
+
+            color: var(--text-muted);
+
+            font-size: 0.95rem;
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            animation: slideUpText 0.7s var(--spring-bounce) 0.25s forwards;
+
+            outline: none;
+
+            border-radius: 6px;
+
+        }
+
+
+        @keyframes slideUpText { to { opacity: 1; transform: translateY(0); } }
+
+
+        /* Links Vertical Stack */
+
+        .links-stack {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 1.1rem;
+
+        }
+
+
+        .link-card {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+            padding: 1.2rem 1.6rem;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--card-border);
+
+            border-radius: 20px;
+
+            text-decoration: none;
+
+            color: var(--text-main);
+
+            backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid var(--card-border);
+
+            
+
+            position: relative;
+
+            overflow: hidden;
+
+            z-index: 1;
+
+            cursor: pointer;
+text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+            
+
+            opacity: 0;
+
+            transform: translateY(60px) scale(0.8);
+
+            animation: elasticEntrance 0.9s var(--spring-bounce) forwards;
+
+            
+
+            transition: 
+
+                transform 0.6s var(--spring-bounce), 
+
+                padding 0.6s var(--spring-bounce),
+
+                background-color 0.4s var(--spring-smooth),
+
+                border-color 0.4s var(--spring-smooth),
+
+                box-shadow 0.6s var(--spring-bounce);
+
+        }
+
+
+        @keyframes elasticEntrance { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+
+        .link-card:nth-child(1) { animation-delay: 0.1s; }
+
+        .link-card:nth-child(2) { animation-delay: 0.16s; }
+
+        .link-card:nth-child(3) { animation-delay: 0.22s; }
+
+        .link-card:nth-child(4) { animation-delay: 0.28s; }
+
+        .link-card:nth-child(5) { animation-delay: 0.34s; }
+
+        .link-card:nth-child(6) { animation-delay: 0.4s; }
+
+
+        .card-main-row {
+
+            display: flex;
+
+            align-items: center;
+
+            width: 100%;
+
+        }
+
+
+        .icon-wrapper {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-right: 1.2rem;
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 9px;
+
+            background: hsla(var(--theme-hue), var(--theme-sat), 30%, 0.15);
+
+            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.1);
+
+            transition: transform 0.5s var(--spring-bounce);
+
+            overflow: hidden;
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .brand-icon-img {
+
+            width: 20px;
+
+            height: 20px;
+
+            object-fit: contain;
+
+        }
+
+
+        .icon-pfp {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            border-radius: 6px;
+
+        }
+
+
+        .link-title {
+
+            flex-grow: 1;
+
+            text-align: left;
+
+            letter-spacing: -0.01em;
+
+            outline: none;
+
+            border-radius: 4px;
+
+            z-index: 2;
+
+            font-weight: 600;
+
+            font-size: 1.05rem;
+
+            transition: color 0.4s var(--spring-smooth);
+
+        }
+
+
+        .arrow-icon {
+
+            opacity: 0.3;
+
+            transform: translateX(-5px);
+
+            transition: all 0.5s var(--spring-bounce);
+
+            color: var(--text-muted);
+
+            z-index: 2;
+
+        }
+
+
+        /* IFRAME LIVE EMBED CONTAINER */
+
+        .live-media-viewport {
+
+            max-height: 0;
+
+            opacity: 0;
+
+            width: 100%;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            margin-top: 0;
+
+            transition: max-height 0.6s var(--spring-bounce), opacity 0.4s var(--spring-smooth), margin-top 0.4s var(--spring-smooth);
+
+            z-index: 2;
+
+            background: rgba(0, 0, 0, 0.35);
+
+            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 40%, 0.08);
+
+        }
+
+
+        .live-media-viewport iframe {
+
+            width: 100%;
+
+            height: 200px;
+
+            border: none;
+
+            display: block;
+
+        }
+
+
+        /* CONDITIONAL PHYSICS STATES */
+
+        .link-card.can-expand:hover {
+
+            transform: scale(1.05) translateY(-5px); 
+
+            padding: 1.45rem 1.85rem; 
+
+            background: var(--card-hover-bg);
+
+            border-color: hsla(var(--theme-hue), var(--theme-sat), 60%, 0.25);
+
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+
+        }
+
+
+        .link-card:not(.can-expand):hover {
+
+            transform: scale(1.03) translateY(-4px);
+
+            background: var(--card-hover-bg);
+
+            border-color: hsla(var(--theme-hue), var(--theme-sat), 50%, 0.2);
+
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+
+        }
+
+
+        .link-card.can-expand:hover .live-media-viewport {
+
+            max-height: 205px;
+
+            opacity: 1;
+
+            margin-top: 1rem;
+
+        }
+
+        
+
+        .link-card:active {
+
+            transform: scale(0.94) translateY(2px); 
+
+            padding: 1.15rem 1.55rem;
+
+            transition: transform 0.1s cubic-bezier(0, 0, 0, 1), padding 0.1s cubic-bezier(0, 0, 0, 1);
+
+        }
+
+
+        .link-card:hover .icon-wrapper { transform: scale(1.35) rotate(-12deg); }
+
+        .link-card:hover .arrow-icon { opacity: 1; transform: translateX(7px) scale(1.2); color: var(--text-main); }
+
+
+        /* MULTI-LAYERED RADIAL BRAND GLOWS */
+
+        .link-card::before {
+
+            content: '';
+
+            position: absolute;
+
+            inset: -50%; 
+
+            z-index: 0;
+
+            opacity: 0;
+
+            filter: blur(28px);
+
+            mix-blend-mode: screen; 
+
+            transition: opacity 0.5s var(--spring-smooth);
+
+            pointer-events: none;
+
+        }
+
+
+        .link-card.youtube-card:hover::before { background: radial-gradient(circle at center, rgba(255, 0, 85, 0.35) 0%, rgba(255, 0, 85, 0.05) 50%, transparent 70%); opacity: 1; }
+
+        .link-card.twitch-card:hover::before { background: radial-gradient(circle at center, rgba(161, 94, 255, 0.38) 0%, rgba(161, 94, 255, 0.05) 50%, transparent 70%); opacity: 1; }
+
+        .link-card.instagram-card:hover::before { background: radial-gradient(circle at center, rgba(255, 51, 133, 0.35) 0%, rgba(255, 51, 133, 0.05) 50%, transparent 70%); opacity: 1; }
+
+        .link-card.discord-card:hover::before { background: radial-gradient(circle at center, rgba(88, 101, 242, 0.35) 0%, rgba(88, 101, 242, 0.05) 50%, transparent 70%); opacity: 1; }
+
+        
+
+        .link-card.tiktok-card:hover::before { 
+
+            background: radial-gradient(circle at 30% 50%, rgba(255, 0, 80, 0.3) 0%, transparent 60%),
+
+                        radial-gradient(circle at 75% 50%, rgba(0, 242, 254, 0.3) 0%, transparent 60%); 
+
+            opacity: 1; 
+
+        }
+
+
+        .link-card.youtube-card:hover .link-title { color: #ffb3c6; }
+
+        .link-card.twitch-card:hover .link-title { color: #e1d0ff; }
+
+        .link-card.instagram-card:hover .link-title { color: #ffccd9; }
+
+        .link-card.discord-card:hover .link-title { color: #d6daff; }
+
+        .link-card.tiktok-card:hover .link-title { color: #d6faff; }
+
+
+        footer {
+
+            margin-top: 3.5rem; font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em;
+
+            text-transform: uppercase; opacity: 0; animation: fadeIn 1s ease 0.6s forwards;
+
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+
+        /* INTEGRATED MODAL AUTHENTICATION */
+
+        .auth-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(4, 5, 10, 0.75);
+
+            backdrop-filter: blur(14px);
+
+            -webkit-backdrop-filter: blur(14px);
+
+            z-index: 500;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 1rem;
+
+        }
+
+        .auth-card {
+
+            background: hsla(var(--theme-hue), var(--theme-sat), 10%, 0.98);
+
+            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.15);
+
+            width: 100%;
+
+            max-width: 360px;
+
+            padding: 1.8rem;
+
+            border-radius: 24px;
+
+            text-align: center;
+
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+
+            transform: scale(0.85);
+
+            opacity: 0;
+
+            transition: all 0.5s var(--spring-bounce);
+
+        }
+
+        .auth-overlay.active { display: flex; }
+
+        .auth-overlay.active .auth-card { transform: scale(1); opacity: 1; }
+
+        
+
+        .auth-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+
+        .auth-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+
+        .auth-card input {
+
+            width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+
+            padding: 0.7rem; border-radius: 12px; color: #fff; font-size: 1rem; text-align: center; outline: none;
+
+        }
+
+        .auth-card .error-msg { color: var(--youtube); font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; display: none; }
+
+        
+
+        .auth-buttons { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
+
+        .auth-btn {
+
+            flex: 1; padding: 0.7rem; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; font-size: 0.9rem; transition: transform 0.2s;
+
+        }
+
+        .auth-submit { background: #fff; color: #0f172a; }
+
+        .auth-cancel { background: rgba(255,255,255,0.06); color: var(--text-main); }
+
+
+        /* LIVE EDIT PARAMETERS ACTIVATED */
+
+        body.edit-mode .link-card { pointer-events: none; }
+
+        body.edit-mode .link-title, 
+
+        body.edit-mode .profile h1, 
+
+        body.edit-mode .profile p {
+
+            pointer-events: auto;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+
+        }
+
+
+        /* CONFIGURATION CONTROL DASHBOARD */
+
+        .editor-panel {
+
+            display: none;
+
+            width: 100%;
+
+            margin-top: 2.5rem;
+
+            background: hsla(var(--theme-hue), var(--theme-sat), 12%, 0.4);
+
+            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.1);
+
+            padding: 1.6rem;
+
+            border-radius: 24px;
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            text-align: left;
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition: all 0.5s var(--spring-bounce);
+
+            max-height: 80vh;
+
+            overflow-y: auto;
+
+        }
+
+        body.edit-mode .editor-panel { display: block; opacity: 1; transform: translateY(0); }
+
+        .editor-panel h3 { margin-bottom: 0.2rem; font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+
+        .editor-panel label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); display: block; margin-top: 0.8rem; text-transform: uppercase; letter-spacing: 0.02em; }
+
+        .editor-panel input, .editor-panel select {
+
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+
+            padding: 0.65rem; border-radius: 12px; color: #fff; font-size: 0.9rem; margin-top: 0.25rem; outline: none;
+
+            transition: border-color 0.2s;
+
+        }
+
+        
+
+        .link-editor-block {
+
+            border-left: 2px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.12);
+
+            padding-left: 0.8rem;
+
+            margin-top: 1rem;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+        .link-editor-block h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+
+        .icon-config-row { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.25rem; }
+
+
+        .editor-panel button.save-action {
+
+            width: 100%; margin-top: 1.6rem; background: #f8fafc; color: #0f172a; border: none;
+
+            padding: 0.85rem; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s ease;
+
+        }
+
+        .editor-panel button.save-action:hover { transform: scale(1.02); background: #fff; }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <button class="admin-trigger" id="editBtn" title="Admin Workspace Control Hub">
+
+        <i data-lucide="settings"></i>
+
+    </button>
+
+
+    <!-- AUTH MODAL SYSTEM -->
+
+    <div class="auth-overlay" id="authOverlay">
+
+        <div class="auth-card">
+
+            <h3>Admin Verification</h3>
+
+            <p>Please type your secure access key.</p>
+
+            <input type="password" id="passInput" placeholder="•••••••••••••">
+
+            <div class="error-msg" id="errorMsg">Incorrect Passphrase.</div>
+
+            <div class="auth-buttons">
+
+                <button class="auth-btn auth-cancel" id="authCancel">Cancel</button>
+
+                <button class="auth-btn auth-submit" id="authSubmit">Verify</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- Profile Segment -->
+
+        <div class="profile">
+
+            <div class="avatar-container" id="avatarContainer">
+
+                <div class="avatar-glow" id="avatarGlowRing"></div>
+
+                <div class="avatar-frame">
+
+                    <img id="avatarImg" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=256&auto=format&fit=crop" alt="Avatar Asset" class="avatar">
+
+                    <div class="avatar-brand-overlay" id="avatarBrandOverlay"></div>
+
+                </div>
+
+            </div>
+
+            <h1 id="profileName" contenteditable="false">Your Name / Handle</h1>
+
+            <p id="profileBio" contenteditable="false">Content Creator & Streamer</p>
+
+        </div>
+
+
+        <!-- Dynamic Links Matrix Stack -->
+
+        <div class="links-stack" id="linksContainer">
+
+            
+
+            <!-- YouTube Main -->
+
+            <div class="link-card youtube-card" data-id="yt1">
+
+                <div class="card-main-row" onclick="navigateTo('yt1')">
+
+                    <div class="icon-wrapper" id="icon-yt1"></div>
+
+                    <span class="link-title" contenteditable="false">YouTube Channel</span>
+
+                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
+
+                </div>
+
+                <div class="live-media-viewport"><iframe id="frame-yt1" src=""></iframe></div>
+
+            </div>
+
+
+            <!-- YouTube Secondary -->
+
+            <div class="link-card youtube-card" data-id="yt2">
+
+                <div class="card-main-row" onclick="navigateTo('yt2')">
+
+                    <div class="icon-wrapper" id="icon-yt2"></div>
+
+                    <span class="link-title" contenteditable="false">YouTube 2 (Clips & VODs)</span>
+
+                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
+
+                </div>
+
+                <div class="live-media-viewport"><iframe id="frame-yt2" src=""></iframe></div>
+
+            </div>
+
+
+            <!-- Twitch -->
+
+            <div class="link-card twitch-card" data-id="twitch">
+
+                <div class="card-main-row" onclick="navigateTo('twitch')">
+
+                    <div class="icon-wrapper" id="icon-twitch"></div>
+
+                    <span class="link-title" contenteditable="false">Twitch Stream</span>
+
+                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
+
+                </div>
+
+                <div class="live-media-viewport"><iframe id="frame-twitch" src=""></iframe></div>
+
+            </div>
+
+
+            <!-- Instagram -->
+
+            <div class="link-card instagram-card" data-id="insta">
+
+                <div class="card-main-row" onclick="navigateTo('insta')">
+
+                    <div class="icon-wrapper" id="icon-insta"></div>
+
+                    <span class="link-title" contenteditable="false">Instagram Portfolio</span>
+
+                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
+
+                </div>
+
+                <div class="live-media-viewport"><iframe id="frame-insta" src=""></iframe></div>
+
+            </div>
+
+
+            <!-- TikTok -->
+
+            <div class="link-card tiktok-card" data-id="tiktok">
+
+                <div class="card-main-row" onclick="navigateTo('tiktok')">
+
+                    <div class="icon-wrapper" id="icon-tiktok"></div>
+
+                    <span class="link-title" contenteditable="false">TikTok</span>
+
+                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
+
+                </div>
+
+                <div class="live-media-viewport"><iframe id="frame-tiktok" src=""></iframe></div>
+
+            </div>
+
+
+            <!-- Discord -->
+
+            <div class="link-card discord-card" data-id="discord">
+
+                <div class="card-main-row" onclick="navigateTo('discord')">
+
+                    <div class="icon-wrapper" id="icon-discord"></div>
+
+                    <span class="link-title" contenteditable="false">The Discord Server</span>
+
+                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
+
+                </div>
+
+                <div class="live-media-viewport"><iframe id="frame-discord" src=""></iframe></div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- PANEL DASHBOARD CORE -->
+
+        <div class="editor-panel" id="editorPanel">
+
+            <h3><i data-lucide="sliders" data-lucide-size="18"></i> Configuration Panel</h3>
+
+            
+
+            <div style="background: rgba(255,255,255,0.03); padding: 0.9rem; border-radius: 14px; margin-top: 0.5rem; border: 1px solid rgba(255,255,255,0.04);">
+
+                <h4 style="font-size:0.8rem; text-transform:uppercase; color:#fff; letter-spacing:0.05em;">Global Design Styles</h4>
+
+                <label>Glow Blur Radius</label>
+
+                <input type="range" id="editGlowBlur" min="5" max="50" value="24" style="padding:0; margin-top:0.4rem; background:none; border:none; cursor:pointer;">
+
+                <label>Glow Aura Profile</label>
+
+                <select id="editGlowTheme">
+
+                    <option value="rgb">Dynamic RGB Wave</option>
+
+                    <option value="white">Minimal Neon White</option>
+
+                </select>
+
+                <label>Main Avatar Photo URL</label>
+
+                <input type="text" id="editAvatarUrl" placeholder="https://...">
+
+            </div>
+
+
+            <h4 style="font-size:0.85rem; text-transform:uppercase; color:#fff; letter-spacing:0.05em; margin-top:1.5rem; margin-bottom:0.5rem;">Link & Embed Settings</h4>
+
+            
+
+            <!-- STACK LINK SLOT ARCHITECTURE EDITORS -->
+
+            <div class="link-editor-block">
+
+                <h4>YouTube Channel Main</h4>
+
+                <label>Destination Link</label>
+
+                <input type="text" id="url-yt1" placeholder="https://youtube.com/...">
+
+                <label>Live Player Embed URL</label>
+
+                <input type="text" id="embed-yt1" placeholder="https://www.youtube.com/embed/...">
+
+                <div class="icon-config-row">
+
+                    <label>Icon Type</label>
+
+                    <select id="iconType-yt1" onchange="togglePfpInput('yt1')">
+
+                        <option value="brand">Official Brand Logo</option>
+
+                        <option value="pfp">Custom Image / Profile Pic</option>
+
+                    </select>
+
+                    <input type="text" id="pfpUrl-yt1" placeholder="Image URL" style="display:none;">
+
+                </div>
+
+            </div>
+
+
+            <div class="link-editor-block">
+
+                <h4>YouTube Secondary Channel</h4>
+
+                <label>Destination Link</label>
+
+                <input type="text" id="url-yt2" placeholder="https://...">
+
+                <label>Live Player Embed URL</label>
+
+                <input type="text" id="embed-yt2" placeholder="https://www.youtube.com/embed/...">
+
+                <div class="icon-config-row">
+
+                    <label>Icon Type</label>
+
+                    <select id="iconType-yt2" onchange="togglePfpInput('yt2')">
+
+                        <option value="brand">Official Brand Logo</option>
+
+                        <option value="pfp">Custom Image / Profile Pic</option>
+
+                    </select>
+
+                    <input type="text" id="pfpUrl-yt2" placeholder="Image URL" style="display:none;">
+
+                </div>
+
+            </div>
+
+
+            <div class="link-editor-block">
+
+                <h4>Twitch Live Stream</h4>
+
+                <label>Destination Link</label>
+
+                <input type="text" id="url-twitch" placeholder="https://twitch.tv/...">
+
+                <label>Twitch Chat/Player Embed URL</label>
+
+                <input type="text" id="embed-twitch" placeholder="https://player.twitch.tv/?channel=...">
+
+                <div class="icon-config-row">
+
+                    <label>Icon Type</label>
+
+                    <select id="iconType-twitch" onchange="togglePfpInput('twitch')">
+
+                        <option value="brand">Official Brand Logo</option>
+
+                        <option value="pfp">Custom Image / Profile Pic</option>
+
+                    </select>
+
+                    <input type="text" id="pfpUrl-twitch" placeholder="Image URL" style="display:none;">
+
+                </div>
+
+            </div>
+
+
+            <div class="link-editor-block">
+
+                <h4>Instagram Feed</h4>
+
+                <label>Destination Link</label>
+
+                <input type="text" id="url-insta" placeholder="https://...">
+
+                <label>Instagram Post Embed URL</label>
+
+                <input type="text" id="embed-insta" placeholder="https://www.instagram.com/p/.../embed">
+
+                <div class="icon-config-row">
+
+                    <label>Icon Type</label>
+
+                    <select id="iconType-insta" onchange="togglePfpInput('insta')">
+
+                        <option value="brand">Official Brand Logo</option>
+
+                        <option value="pfp">Custom Image / Profile Pic</option>
+
+                    </select>
+
+                    <input type="text" id="pfpUrl-insta" placeholder="Image URL" style="display:none;">
+
+                </div>
+
+            </div>
+
+
+            <div class="link-editor-block">
+
+                <h4>TikTok Account</h4>
+
+                <label>Destination Link</label>
+
+                <input type="text" id="url-tiktok" placeholder="https://...">
+
+                <label>TikTok Embed URL</label>
+
+                <input type="text" id="embed-tiktok" placeholder="https://www.tiktok.com/embed/...">
+
+                <div class="icon-config-row">
+
+                    <label>Icon Type</label>
+
+                    <select id="iconType-tiktok" onchange="togglePfpInput('tiktok')">
+
+                        <option value="brand">Official Brand Logo</option>
+
+                        <option value="pfp">Custom Image / Profile Pic</option>
+
+                    </select>
+
+                    <input type="text" id="pfpUrl-tiktok" placeholder="Image URL" style="display:none;">
+
+                </div>
+
+            </div>
+
+
+            <div class="link-editor-block">
+
+                <h4>Discord Server Community</h4>
+
+                <label>Invite Link Link</label>
+
+                <input type="text" id="url-discord" placeholder="https://...">
+
+                <label>Discord Server Widget Embed URL</label>
+
+                <input type="text" id="embed-discord" placeholder="https://discord.gg/widget?id=...">
+
+                <div class="icon-config-row">
+
+                    <label>Icon Type</label>
+
+                    <select id="iconType-discord" onchange="togglePfpInput('discord')">
+
+                        <option value="brand">Official Brand Logo</option>
+
+                        <option value="pfp">Custom Image / Profile Pic</option>
+
+                    </select>
+
+                    <input type="text" id="pfpUrl-discord" placeholder="Image URL" style="display:none;">
+
+                </div>
+
+            </div>
+
+
+            <button class="save-action" id="saveBtn">Exit & Save Configuration</button>
+
+        </div>
+
+
+        <footer>
+
+            &copy; 2026 ir_Fabi.
+
+        </footer>
+
+    </div>
+
+
+    <script>
+// Konami Code Easter Egg
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            triggerPartyMode();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+function triggerPartyMode() {
+    document.body.style.animation = "gradientBG 1s linear infinite";
+    alert("Party Mode Activated! ??");
+    setTimeout(() => {
+        document.body.style.animation = "gradientBG 18s ease infinite";
+    }, 5000); // Resets after 5 seconds
+}
+
+let avatarClickCount = 0;
+document.getElementById('avatarContainer').addEventListener('click', () => {
+    avatarClickCount++;
+    if (avatarClickCount === 5) {
+        const avatar = document.getElementById('avatarImg');
+        avatar.style.transition = "transform 1s ease-in-out, border-radius 1s";
+        avatar.style.transform = "rotate(360deg) scale(1.2)";
+        avatar.style.borderRadius = "50%";
+        
+        console.log("Secret Unlocked: Power Star Mode!");
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+            avatar.style.transform = "rotate(0deg) scale(1)";
+            avatar.style.borderRadius = "32% 68% 68% 32% / 40% 36% 64% 60%";
+            avatarClickCount = 0;
+        }, 3000);
+    }
+});
+
+// Change tab title when user leaves the page
+const originalTitle = document.title;
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        document.title = "Wo willst du hin, gööörrrr";
+    } else {
+        document.title = originalTitle;
+    }
+});
+        const brandIconUrls = {
+
+            yt1: "https://cdn.simpleicons.org/youtube/f8fafc",
+
+            yt2: "https://cdn.simpleicons.org/youtube/f8fafc",
+
+            twitch: "https://cdn.simpleicons.org/twitch/f8fafc",
+
+            insta: "https://cdn.simpleicons.org/instagram/f8fafc",
+
+            tiktok: "https://cdn.simpleicons.org/tiktok/f8fafc",
+
+            discord: "https://cdn.simpleicons.org/discord/f8fafc"
+
+        };
+
+
+        const brandIcons = {
+
+            yt1: `<img src="${brandIconUrls.yt1}" class="brand-icon-img" alt="YouTube">`,
+
+            yt2: `<img src="${brandIconUrls.yt2}" class="brand-icon-img" alt="YouTube">`,
+
+            twitch: `<img src="${brandIconUrls.twitch}" class="brand-icon-img" alt="Twitch">`,
+
+            insta: `<img src="${brandIconUrls.insta}" class="brand-icon-img" alt="Instagram">`,
+
+            tiktok: `<img src="${brandIconUrls.tiktok}" class="brand-icon-img" alt="TikTok">`,
+
+            discord: `<img src="${brandIconUrls.discord}" class="brand-icon-img" alt="Discord">`
+
+        };
+
+
+        const brandColors = {
+
+            yt1: "var(--youtube)",
+
+            yt2: "var(--youtube)",
+
+            twitch: "var(--twitch)",
+
+            insta: "var(--instagram)",
+
+            discord: "var(--discord)",
+
+            tiktok: "linear-gradient(90deg, var(--tiktok-red), var(--tiktok-blue))"
+
+        };
+
+
+       let siteData = {
+    name: "ir_Fabi",             // Change this to your Display Name
+    bio: "Hellouu, hier findest du jegliche Art von geistigem Dünnpfiff den ich so ins World Wide Web schieße - ??",        // Change this to your Bio
+    avatar: "https://yt3.googleusercontent.com/w-xHu2awl7Hba9lkrMUgXIBw4eMBM6nkJ273J1ESoDWv90mRJ1iERcdzNs_K0cKImYDw8LuS=s160-c-k-c0x00ffffff-no-rj", // Paste your direct image link here
+    glowBlur: "24",
+    glowTheme: "rgb",
+    links: {
+        yt1: { title: "YouTube - ir_Fabi", url: "https://www.youtube.com/@ir_fabi", iconType: "brand", pfpUrl: "", embedUrl: "" },
+        yt2: { title: "YouTube - Internet Rambos", url: "https://www.youtube.com/@InternetRambos", iconType: "brand", pfpUrl: "", embedUrl: "" },
+        twitch: { title: "Twitch - ir_Fabi", url: "https://www.twitch.tv/ir_fabi", iconType: "brand", pfpUrl: "", embedUrl: "" },
+        insta: { title: "Instagram - ir_Fabi", url: "https://www.instagram.com/ir_fabi/", iconType: "brand", pfpUrl: "", embedUrl: "" },
+        tiktok: { title: "TikTok - ir_Fabi", url: "https://tiktok.com/@ir_fabi", iconType: "brand", pfpUrl: "", embedUrl: "" },
+        discord: { title: "Discord - Fabis KELLER", url: "https://discord.gg/DWPD3CE7xc", iconType: "brand", pfpUrl: "", embedUrl: "" }
+    }
+};
+
+
+        function loadCachedData() {
+
+            const saved = localStorage.getItem('profile_links_data');
+
+            if (saved) {
+
+                siteData = JSON.parse(saved);
+
+            }
+
+            renderData();
+
+            setupInteractiveTracking();
+
+        }
+
+
+        /* --- THE SMART HUE MATRIX ENGINE --- */
+
+        function extractArtworkHue(url) {
+
+            // Converts any target string URL index cleanly into an explicit deterministic tint loop
+
+            let codeSum = 0;
+
+            for (let i = 0; i < url.length; i++) {
+
+                codeSum += url.charCodeAt(i);
+
+            }
+
+            // Maps matching balance cleanly onto the 360 color degree dial wheel
+
+            const targetHue = codeSum % 360;
+
+            document.documentElement.style.setProperty('--theme-hue', targetHue);
+
+        }
+
+
+        function renderData() {
+
+            document.getElementById('profileName').innerText = siteData.name;
+
+            document.getElementById('profileBio').innerText = siteData.bio;
+
+            document.getElementById('avatarImg').src = siteData.avatar;
+
+            document.getElementById('editAvatarUrl').value = siteData.avatar;
+
+            
+
+            // Comment it out or replace it to force the green hue
+// extractArtworkHue(siteData.avatar); 
+document.documentElement.style.setProperty('--theme-hue', 120);
+
+
+            document.getElementById('editGlowBlur').value = siteData.glowBlur || "24";
+
+            document.getElementById('editGlowTheme').value = siteData.glowTheme || "rgb";
+
+            document.documentElement.style.setProperty('--glow-blur', (siteData.glowBlur || "24") + "px");
+
+            resetDefaultGlow();
+
+
+            Object.keys(siteData.links).forEach(key => {
+
+                const card = document.querySelector(`[data-id="${key}"]`);
+
+                if (card) {
+
+                    card.querySelector('.link-title').innerText = siteData.links[key].title;
+
+                    
+
+                    document.getElementById(`url-${key}`).value = siteData.links[key].url;
+
+                    document.getElementById(`embed-${key}`).value = siteData.links[key].embedUrl || "";
+
+                    document.getElementById(`iconType-${key}`).value = siteData.links[key].iconType || "brand";
+
+                    
+
+                    const iframe = document.getElementById(`frame-${key}`);
+
+                    if (siteData.links[key].embedUrl && siteData.links[key].embedUrl.trim() !== "") {
+
+                        card.classList.add('can-expand');
+
+                        if (iframe) iframe.src = siteData.links[key].embedUrl;
+
+                    } else {
+
+                        card.classList.remove('can-expand');
+
+                        if (iframe) iframe.src = "";
+
+                    }
+
+                    
+
+                    const pfpField = document.getElementById(`pfpUrl-${key}`);
+
+                    pfpField.value = siteData.links[key].pfpUrl || "";
+
+                    
+
+                    togglePfpInput(key);
+
+
+                    const wrapper = document.getElementById(`icon-${key}`);
+
+                    if (siteData.links[key].iconType === "pfp" && siteData.links[key].pfpUrl) {
+
+                        wrapper.innerHTML = `<img src="${siteData.links[key].pfpUrl}" class="icon-pfp" alt="pfp">`;
+
+                    } else {
+
+                        wrapper.innerHTML = brandIcons[key];
+
+                    }
+
+                }
+
+            });
+
+            lucide.createIcons();
+
+        }
+
+
+       function resetDefaultGlow() {
+    if (siteData.glowTheme === "white") {
+        document.documentElement.style.setProperty('--glow-gradient', "white");
+    } else {
+        // Force the glow to be a beautiful Green -> Mint spectrum
+        document.documentElement.style.setProperty('--glow-gradient', "linear-gradient(45deg, #22c55e, #10b981, #34d399)");
+    }
+}
+
+
+        function setupInteractiveTracking() {
+
+            const avatarContainer = document.getElementById('avatarContainer');
+
+            const brandOverlay = document.getElementById('avatarBrandOverlay');
+
+
+            Object.keys(siteData.links).forEach(key => {
+
+                const card = document.querySelector(`[data-id="${key}"]`);
+
+                
+
+                if (card) {
+
+                    card.addEventListener('mouseenter', () => {
+
+                        if (siteData.links[key].embedUrl && siteData.links[key].embedUrl.trim() !== "") {
+
+                            document.documentElement.style.setProperty('--glow-gradient', brandColors[key]);
+
+                            
+
+                            let targetImgSrc = brandIconUrls[key];
+
+                            if (siteData.links[key].iconType === "pfp" && siteData.links[key].pfpUrl) {
+
+                                targetImgSrc = siteData.links[key].pfpUrl;
+
+                            }
+
+                            brandOverlay.innerHTML = `<img src="${targetImgSrc}" alt="Target Logo">`;
+
+                            avatarContainer.classList.add('swapped');
+
+                        }
+
+                    });
+
+
+                    card.addEventListener('mouseleave', () => {
+
+                        avatarContainer.classList.remove('swapped');
+
+                        resetDefaultGlow();
+
+                    });
+
+                }
+
+            });
+
+        }
+
+
+        function navigateTo(id) {
+
+            if(!document.body.classList.contains('edit-mode')) {
+
+                window.open(siteData.links[id].url, '_blank');
+
+            }
+
+        }
+
+
+        function togglePfpInput(key) {
+
+            const selectValue = document.getElementById(`iconType-${key}`).value;
+
+            const inputEl = document.getElementById(`pfpUrl-${key}`);
+
+            if (selectValue === "pfp") {
+
+                inputEl.style.display = "block";
+
+            } else {
+
+                inputEl.style.display = "none";
+
+            }
+
+        }
+
+
+        // Live Admin Panel Adjustments
+
+        document.getElementById('editGlowBlur').addEventListener('input', (e) => {
+
+            document.documentElement.style.setProperty('--glow-blur', e.target.value + "px");
+
+        });
+
+        document.getElementById('editGlowTheme').addEventListener('change', (e) => {
+
+            siteData.glowTheme = e.target.value;
+
+            resetDefaultGlow();
+
+        });
+
+
+        // Modal Controls
+
+        const authOverlay = document.getElementById('authOverlay');
+
+        const passInput = document.getElementById('passInput');
+
+        const errorMsg = document.getElementById('errorMsg');
+
+
+        document.getElementById('editBtn').addEventListener('click', () => {
+
+            if (document.body.classList.contains('edit-mode')) {
+
+                exitEditMode(true);
+
+                return;
+
+            }
+
+            passInput.value = "";
+
+            errorMsg.style.display = "none";
+
+            authOverlay.classList.add('active');
+
+            passInput.focus();
+
+        });
+
+
+        document.getElementById('authCancel').addEventListener('click', () => {
+
+            authOverlay.classList.remove('active');
+
+        });
+
+
+        function verifyCredentials() {
+
+            if (passInput.value === "Franziistgay") {
+
+                authOverlay.classList.remove('active');
+
+                enterEditMode();
+
+            } else {
+
+                errorMsg.style.display = "block";
+
+            }
+
+        }
+
+
+        document.getElementById('authSubmit').addEventListener('click', verifyCredentials);
+
+        passInput.addEventListener('keydown', (e) => {
+
+            if (e.key === 'Enter') verifyCredentials();
+
+        });
+
+
+        function enterEditMode() {
+
+            document.body.classList.add('edit-mode');
+
+            document.getElementById('profileName').contentEditable = "true";
+
+            document.getElementById('profileBio').contentEditable = "true";
+
+            document.querySelectorAll('.link-title').forEach(el => el.contentEditable = "true");
+
+        }
+
+
+        function exitEditMode(shouldSave) {
+
+            if (shouldSave) {
+
+                siteData.name = document.getElementById('profileName').innerText;
+
+                siteData.bio = document.getElementById('profileBio').innerText;
+
+                siteData.avatar = document.getElementById('editAvatarUrl').value;
+
+                siteData.glowBlur = document.getElementById('editGlowBlur').value;
+
+                siteData.glowTheme = document.getElementById('editGlowTheme').value;
+
+
+                Object.keys(siteData.links).forEach(key => {
+
+                    const card = document.querySelector(`[data-id="${key}"]`);
+
+                    if (card) {
+
+                        siteData.links[key].title = card.querySelector('.link-title').innerText;
+
+                        siteData.links[key].url = document.getElementById(`url-${key}`).value;
+
+                        siteData.links[key].embedUrl = document.getElementById(`embed-${key}`).value;
+
+                        siteData.links[key].iconType = document.getElementById(`iconType-${key}`).value;
+
+                        siteData.links[key].pfpUrl = document.getElementById(`pfpUrl-${key}`).value;
+
+                    }
+
+                });
+
+
+                localStorage.setItem('profile_links_data', JSON.stringify(siteData));
+
+                renderData();
+
+            }
+
+
+            document.body.classList.remove('edit-mode');
+
+            document.getElementById('profileName').contentEditable = "false";
+
+            document.getElementById('profileBio').contentEditable = "false";
+
+            document.querySelectorAll('.link-title').forEach(el => el.contentEditable = "false");
+
+        }
+
+
+        document.getElementById('saveBtn').addEventListener('click', () => {
+
+            exitEditMode(true);
+
+        });
+
+
+        loadCachedData();
+
+    </script>
+
+</body>
+
+</html> 
