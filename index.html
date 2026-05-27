@@ -1,1926 +1,417 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-
-    <head>
     <meta charset="UTF-8">
-</head>
-    <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Socials</title>
-
-    <!-- Vector Core Icons for clean modern typography -->
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-
+    <title>@ir_Fabi | Links</title>
     <style>
-
-        /* Safely hide the admin tools without breaking the site logic */
-.admin-trigger, 
-.auth-overlay, 
-.editor-panel {
-    display: none !important;
-}
         :root {
-
-            /* OVERHAULED: Dynamic theme foundations derived directly from the avatar aesthetic */
-
-            --theme-hue: 120; /* Dynamically adjusted via JS */
-
-            --theme-sat: 50%;
-
+            /* 🟢 GREEN THEME COLORS */
+            --bg-deep: #010603; 
+            --bg-mid: #041208;
+            --glass-bg: rgba(12, 28, 18, 0.65); /* Etwas dunkler für besseren Kontrast */
+            --glass-border: rgba(0, 255, 128, 0.25); 
             
+            --orb-1: rgba(0, 255, 106, 0.25);  
+            --orb-2: rgba(100, 255, 0, 0.15); 
+            --orb-3: rgba(0, 150, 75, 0.3);  
 
-            /* Ambient UI Gradients matching the dominant character profile */
-
-            --bg-gradient: linear-gradient(135deg, 
-
-                hsl(var(--theme-hue), var(--theme-sat), 5%) 0%, 
-
-                hsl(var(--theme-hue), var(--theme-sat), 8%) 50%, 
-
-                hsl(calc(var(--theme-hue) + 30), var(--theme-sat), 4%) 100%
-
-            );
-
+            --text-main: #ffffff;
+            --text-muted: #b3bdc2; /* Helleres Grau für bessere Lesbarkeit */
             
-
-            /* Transparent glass panels unified with the tint spectrum */
-
-            --card-bg: rgba(255, 255, 255, 0.08);
-
-            --card-border: rgba(255, 255, 255, 0.18);
-
-            --card-hover-bg: rgba(255, 255, 255, 0.15);
-
-            --text-main: #f8fafc;
-
-            --text-muted: hsla(var(--theme-hue), 15%, 75%, 0.7);
-
-            
-
-            /* Brand palettes adjusted for optimal contrast over tint overlays */
-
-            --youtube: #ff0055;
-
-            --twitch: #a15eff;
-
-            --instagram: #ff3385;
-
-            --tiktok-red: #ff0050;
-
-            --tiktok-blue: #00f2fe;
-
-            --discord: #5865f2;
-
-
-            /* Maximum Spring Curve Physics (Ultra-bouncy rubber-band overshoot) */
-
-            --spring-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
-
-            --spring-smooth: cubic-bezier(0.25, 1, 0.4, 1);
-
-
-            --glow-blur: 28px;
-
-            --glow-gradient: linear-gradient(45deg, var(--twitch), var(--tiktok-blue), var(--youtube));
-
+            /* Platform Brand Colors */
+            --yt: #ff0000;
+            --tw: #9146ff;
+            --ig: #e1306c;
+            --tt-cyan: #25F4EE;
+            --tt-red: #FE2C55;
+            --dc: #5865f2;
+            --sp: #1DB954; 
         }
-
 
         * {
-
-            margin: 0;
-
-            padding: 0;
-
             box-sizing: border-box;
-
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-
+            margin: 0;
+            padding: 0;
         }
-
 
         body {
-
-            background: var(--bg-gradient);
-
-            background-size: 400% 400%;
-
-            animation: gradientBG 18s ease infinite;
-
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-main);
-
             min-height: 100vh;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
-            padding: 6rem 1rem 5rem; 
-
+            padding: 2rem 1rem;
+            
+            /* Animierter Basis-Hintergrund */
+            background: linear-gradient(45deg, var(--bg-deep), var(--bg-mid), var(--bg-deep));
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            
             overflow-x: hidden;
-
             position: relative;
-
-            transition: background 0.8s ease;
-
         }
 
-
-        @keyframes gradientBG {
-
+        @keyframes gradientShift {
             0% { background-position: 0% 50%; }
-
             50% { background-position: 100% 50%; }
-
             100% { background-position: 0% 50%; }
-
         }
 
-
-        /* Settings Gear (Top Right Corner) */
-
-        .admin-trigger {
-
+        /* =========================================
+           FLOATING DIGITAL DUST (PARTIKEL)
+           ========================================= */
+        body::before {
+            content: "";
             position: absolute;
-
-            top: 1.5rem;
-
-            right: 1.5rem;
-
-            background: hsla(var(--theme-hue), var(--theme-sat), 20%, 0.2);
-
-            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.15);
-
-            color: var(--text-muted);
-
-            padding: 0.7rem;
-
-            border-radius: 14px;
-
-            cursor: pointer;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            transition: all 0.5s var(--spring-bounce);
-
-            backdrop-filter: blur(8px);
-
-            -webkit-backdrop-filter: blur(8px);
-
-            z-index: 100;
-
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            /* Erzeugt kleine Punkte/Sterne */
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20px 30px, rgba(0, 255, 128, 0.5), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.3), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, rgba(0, 255, 128, 0.4), rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, rgba(255, 255, 255, 0.2), rgba(0,0,0,0)),
+                radial-gradient(2.5px 2.5px at 130px 80px, rgba(0, 255, 128, 0.3), rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 150px 150px;
+            animation: dustFloat 60s linear infinite;
+            z-index: 0;
+            pointer-events: none;
         }
 
-
-        .admin-trigger:hover {
-
-            transform: scale(1.22) rotate(45deg);
-
-            background: hsla(var(--theme-hue), var(--theme-sat), 40%, 0.3);
-
-            color: var(--text-main);
-
-            box-shadow: 0 0 25px hsla(var(--theme-hue), var(--theme-sat), 50%, 0.25);
-
+        @keyframes dustFloat {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(150px, 150px) rotate(5deg); }
         }
 
+        /* =========================================
+           ENHANCED AMBIENT GREEN ORBS
+           ========================================= */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: floatOrbX 20s infinite ease-in-out alternate, floatOrbY 25s infinite ease-in-out alternate;
+            pointer-events: none;
+        }
+        
+        .orb-1 { width: 500px; height: 500px; background: var(--orb-1); top: -150px; left: -200px; }
+        .orb-2 { width: 400px; height: 400px; background: var(--orb-2); bottom: -150px; right: -150px; animation-delay: -5s, -7s; }
+        .orb-3 { width: 450px; height: 450px; background: var(--orb-3); top: 20%; left: 40%; animation-delay: -10s, -3s; }
+
+        @keyframes floatOrbX {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px) scale(1.1); }
+        }
+        @keyframes floatOrbY {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(80px) scale(0.9); }
+        }
 
         .container {
-
             width: 100%;
+            max-width: 480px;
+            z-index: 10;
+        }
 
-            max-width: 450px;
-
+        /* =========================================
+           PROFILE SECTION
+           ========================================= */
+        .profile-card {
             text-align: center;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 0;
-
-        }
-
-
-        /* Profile Section Details */
-
-        .profile {
-
             margin-bottom: 2.5rem;
-
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            /* Schatten hinter dem Profilbereich für Kontrast */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
-
 
         .avatar-container {
-
             position: relative;
-
-            width: 115px;
-
-            height: 115px;
-
-            margin: 0 auto 1.2rem;
-
-            opacity: 0;
-
-            transform: scale(0.2);
-
-            animation: popIn 0.9s var(--spring-bounce) forwards;
-
+            width: 135px;
+            height: 135px;
+            margin: 0 auto 1.5rem;
+            animation: floatAvatar 6s ease-in-out infinite; 
         }
-
-
-        @keyframes popIn {
-
-            to { opacity: 1; transform: scale(1); }
-
-        }
-
-
-        .avatar-frame {
-
-            width: 100%;
-
-            height: 100%;
-
-            position: relative;
-
-            z-index: 2;
-
-        }
-
 
         .avatar {
-
             width: 100%;
-
             height: 100%;
-
-            border-radius: 32% 68% 68% 32% / 40% 36% 64% 60%;
-
-            object-fit: cover;
-
-            border: 2px solid hsla(var(--theme-hue), var(--theme-sat), 60%, 0.25);
-
-            position: absolute;
-
-            inset: 0;
-
-            z-index: 3;
-
-            animation: fluidBlob 8s ease-in-out infinite alternate;
-
-            transition: opacity 0.3s var(--spring-smooth), transform 0.5s var(--spring-bounce);
-
-        }
-
-
-        .avatar-brand-overlay {
-
-            position: absolute;
-
-            inset: 0;
-
+            background: #0a140d;
+            border: 2px solid rgba(0,255,128,0.4); 
             display: flex;
-
-            align-items: center;
-
             justify-content: center;
-
-            z-index: 4;
-
-            opacity: 0;
-
-            transform: scale(0.3);
-
-            transition: opacity 0.3s var(--spring-smooth), transform 0.5s var(--spring-bounce);
-
-            pointer-events: none;
-
+            align-items: center;
+            font-size: 3.5rem;
+            position: relative;
+            z-index: 2;
+            overflow: hidden; 
+            animation: liquidMorph 8s ease-in-out infinite; 
         }
 
-
-        .avatar-brand-overlay img {
-
-            width: 52px;
-
-            height: 52px;
-
-            object-fit: contain;
-
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
-
-        }
-
-
-        .avatar-container.swapped .avatar {
-
-            opacity: 0;
-
-            transform: scale(0.6);
-
-        }
-
-        .avatar-container.swapped .avatar-brand-overlay {
-
-            opacity: 1;
-
-            transform: scale(1.15);
-
-        }
-
-
-        @keyframes fluidBlob {
-
-            0% { border-radius: 32% 68% 68% 32% / 40% 36% 64% 60%; }
-
-            50% { border-radius: 56% 44% 33% 67% / 61% 38% 62% 39%; }
-
-            100% { border-radius: 32% 68% 68% 32% / 40% 36% 64% 60%; }
-
-        }
-
-
-        /* Ambient glow syncing directly to the calculated artwork core */
-
-        .avatar-glow {
-
+        .avatar-ring {
             position: absolute;
-
-            top: -6px;
-
-            left: -6px;
-
-            width: 112%;
-
-            height: 112%;
-
-            background: var(--glow-gradient);
-
-            filter: blur(var(--glow-blur));
-
-            opacity: 0.65;
-
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            background: linear-gradient(135deg, #00ff66, #009955, #aaff00);
             z-index: 1;
-
-            border-radius: 50%;
-
-            mix-blend-mode: screen;
-
-            animation: breatheGlow 4s ease-in-out infinite alternate;
-
-            transition: background 0.5s var(--spring-smooth), filter 0.4s ease;
-
+            filter: blur(16px);
+            opacity: 0.75;
+            animation: liquidMorph 6s ease-in-out infinite reverse, pulseGlow 4s ease-in-out infinite alternate;
         }
 
-
-        @keyframes breatheGlow {
-
-            0% { opacity: 0.5; transform: scale(0.92); filter: blur(calc(var(--glow-blur) - 4px)); }
-
-            100% { opacity: 0.8; transform: scale(1.08); filter: blur(calc(var(--glow-blur) + 8px)); }
-
+        @keyframes liquidMorph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
 
-
-        .profile h1 {
-
-            font-size: 1.85rem;
-
-            font-weight: 800;
-
-            letter-spacing: -0.03em;
-
-            margin-bottom: 0.4rem;
-
-            opacity: 0;
-
-            transform: translateY(25px);
-
-            animation: slideUpText 0.7s var(--spring-bounce) 0.15s forwards;
-
-            outline: none;
-
-            border-radius: 6px;
-
-            text-shadow: 0 4px 12px hsla(var(--theme-hue), var(--theme-sat), 4%, 0.5);
-
+        .username {
+            font-size: 2.1rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            /* Doppelt text-shadow für perfekten Kontrast */
+            text-shadow: 0 4px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,255,128,0.3); 
         }
 
-
-        .profile p {
-
-            color: var(--text-muted);
-
-            font-size: 0.95rem;
-
-            opacity: 0;
-
-            transform: translateY(20px);
-
-            animation: slideUpText 0.7s var(--spring-bounce) 0.25s forwards;
-
-            outline: none;
-
-            border-radius: 6px;
-
+        .bio { 
+            font-size: 1rem; 
+            color: var(--text-muted); 
+            line-height: 1.6; 
+            padding: 0 0.5rem; 
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9); /* Macht den Text super lesbar über den Orbs */
         }
 
-
-        @keyframes slideUpText { to { opacity: 1; transform: translateY(0); } }
-
-
-        /* Links Vertical Stack */
-
-        .links-stack {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 1.1rem;
-
-        }
-
+        /* =========================================
+           LINK CARDS & SHIMMER ANIMATION
+           ========================================= */
+        .links-grid { display: flex; flex-direction: column; gap: 1.2rem; }
 
         .link-card {
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: stretch;
-
-            padding: 1.2rem 1.6rem;
-
-            background: var(--card-bg);
-
-            border: 1px solid var(--card-border);
-
-            border-radius: 20px;
-
-            text-decoration: none;
-
-            color: var(--text-main);
-
-            backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    border: 1px solid var(--card-border);
-
+            display: flex; align-items: center; padding: 1.25rem 1.5rem;
+            background: var(--glass-bg); 
+            backdrop-filter: blur(32px); /* Stärkerer Blur für besseren Kontrast */
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid var(--glass-border); 
+            border-radius: 16px;
+            text-decoration: none; color: var(--text-main);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Festerer Schatten unter den Boxen */
             
-
-            position: relative;
-
-            overflow: hidden;
-
-            z-index: 1;
-
-            cursor: pointer;
-text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-            
-
-            opacity: 0;
-
-            transform: translateY(60px) scale(0.8);
-
-            animation: elasticEntrance 0.9s var(--spring-bounce) forwards;
-
-            
-
-            transition: 
-
-                transform 0.6s var(--spring-bounce), 
-
-                padding 0.6s var(--spring-bounce),
-
-                background-color 0.4s var(--spring-smooth),
-
-                border-color 0.4s var(--spring-smooth),
-
-                box-shadow 0.6s var(--spring-bounce);
-
+            opacity: 0; transform: translateY(30px) scale(0.95);
+            animation: springUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-
-
-        @keyframes elasticEntrance { to { opacity: 1; transform: translateY(0) scale(1); } }
-
-
-        .link-card:nth-child(1) { animation-delay: 0.1s; }
-
-        .link-card:nth-child(2) { animation-delay: 0.16s; }
-
-        .link-card:nth-child(3) { animation-delay: 0.22s; }
-
-        .link-card:nth-child(4) { animation-delay: 0.28s; }
-
-        .link-card:nth-child(5) { animation-delay: 0.34s; }
-
-        .link-card:nth-child(6) { animation-delay: 0.4s; }
-
-
-        .card-main-row {
-
-            display: flex;
-
-            align-items: center;
-
-            width: 100%;
-
-        }
-
-
-        .icon-wrapper {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            margin-right: 1.2rem;
-
-            width: 34px;
-
-            height: 34px;
-
-            border-radius: 9px;
-
-            background: hsla(var(--theme-hue), var(--theme-sat), 30%, 0.15);
-
-            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.1);
-
-            transition: transform 0.5s var(--spring-bounce);
-
-            overflow: hidden;
-
-            position: relative;
-
-            z-index: 2;
-
-        }
-
-
-        .brand-icon-img {
-
-            width: 20px;
-
-            height: 20px;
-
-            object-fit: contain;
-
-        }
-
-
-        .icon-pfp {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-
-            border-radius: 6px;
-
-        }
-
-
-        .link-title {
-
-            flex-grow: 1;
-
-            text-align: left;
-
-            letter-spacing: -0.01em;
-
-            outline: none;
-
-            border-radius: 4px;
-
-            z-index: 2;
-
-            font-weight: 600;
-
-            font-size: 1.05rem;
-
-            transition: color 0.4s var(--spring-smooth);
-
-        }
-
-
-        .arrow-icon {
-
-            opacity: 0.3;
-
-            transform: translateX(-5px);
-
-            transition: all 0.5s var(--spring-bounce);
-
-            color: var(--text-muted);
-
-            z-index: 2;
-
-        }
-
-
-        /* IFRAME LIVE EMBED CONTAINER */
-
-        .live-media-viewport {
-
-            max-height: 0;
-
-            opacity: 0;
-
-            width: 100%;
-
-            border-radius: 12px;
-
-            overflow: hidden;
-
-            margin-top: 0;
-
-            transition: max-height 0.6s var(--spring-bounce), opacity 0.4s var(--spring-smooth), margin-top 0.4s var(--spring-smooth);
-
-            z-index: 2;
-
-            background: rgba(0, 0, 0, 0.35);
-
-            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 40%, 0.08);
-
-        }
-
-
-        .live-media-viewport iframe {
-
-            width: 100%;
-
-            height: 200px;
-
-            border: none;
-
-            display: block;
-
-        }
-
-
-        /* CONDITIONAL PHYSICS STATES */
-
-        .link-card.can-expand:hover {
-
-            transform: scale(1.05) translateY(-5px); 
-
-            padding: 1.45rem 1.85rem; 
-
-            background: var(--card-hover-bg);
-
-            border-color: hsla(var(--theme-hue), var(--theme-sat), 60%, 0.25);
-
-            box-shadow: 0 25px 45px rgba(0,0,0,0.5);
-
-        }
-
-
-        .link-card:not(.can-expand):hover {
-
-            transform: scale(1.03) translateY(-4px);
-
-            background: var(--card-hover-bg);
-
-            border-color: hsla(var(--theme-hue), var(--theme-sat), 50%, 0.2);
-
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-
-        }
-
-
-        .link-card.can-expand:hover .live-media-viewport {
-
-            max-height: 205px;
-
-            opacity: 1;
-
-            margin-top: 1rem;
-
-        }
-
-        
-
-        .link-card:active {
-
-            transform: scale(0.94) translateY(2px); 
-
-            padding: 1.15rem 1.55rem;
-
-            transition: transform 0.1s cubic-bezier(0, 0, 0, 1), padding 0.1s cubic-bezier(0, 0, 0, 1);
-
-        }
-
-
-        .link-card:hover .icon-wrapper { transform: scale(1.35) rotate(-12deg); }
-
-        .link-card:hover .arrow-icon { opacity: 1; transform: translateX(7px) scale(1.2); color: var(--text-main); }
-
-
-        /* MULTI-LAYERED RADIAL BRAND GLOWS */
 
         .link-card::before {
-
-            content: '';
-
+            content: "";
             position: absolute;
-
-            inset: -50%; 
-
-            z-index: 0;
-
-            opacity: 0;
-
-            filter: blur(28px);
-
-            mix-blend-mode: screen; 
-
-            transition: opacity 0.5s var(--spring-smooth);
-
+            top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-25deg);
+            animation: shimmerSweep 7s infinite;
             pointer-events: none;
-
+            z-index: 1;
         }
 
+        @keyframes shimmerSweep {
+            0%, 70% { left: -150%; } 
+            100% { left: 200%; }     
+        }
 
-        .link-card.youtube-card:hover::before { background: radial-gradient(circle at center, rgba(255, 0, 85, 0.35) 0%, rgba(255, 0, 85, 0.05) 50%, transparent 70%); opacity: 1; }
+        .link-card:nth-child(1) { animation-delay: 0.1s; }
+        .link-card:nth-child(2) { animation-delay: 0.2s; }
+        .link-card:nth-child(3) { animation-delay: 0.3s; }
+        .link-card:nth-child(4) { animation-delay: 0.4s; }
+        .link-card:nth-child(5) { animation-delay: 0.5s; }
+        .link-card:nth-child(6) { animation-delay: 0.6s; }
+        .link-card:nth-child(7) { animation-delay: 0.7s; } 
 
-        .link-card.twitch-card:hover::before { background: radial-gradient(circle at center, rgba(161, 94, 255, 0.38) 0%, rgba(161, 94, 255, 0.05) 50%, transparent 70%); opacity: 1; }
+        .link-card:hover { 
+            transform: translateY(-6px) scale(1.03); 
+            background: rgba(18, 40, 25, 0.75); /* Deutlicheres Aufleuchten beim Hover */
+            border-color: rgba(0, 255, 128, 0.6); 
+            z-index: 5;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
 
-        .link-card.instagram-card:hover::before { background: radial-gradient(circle at center, rgba(255, 51, 133, 0.35) 0%, rgba(255, 51, 133, 0.05) 50%, transparent 70%); opacity: 1; }
+        .link-card.yt:hover { box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.15), 0 15px 40px rgba(255, 0, 0, 0.25); }
+        .link-card.tw:hover { box-shadow: inset 0 0 30px rgba(145, 70, 255, 0.15), 0 15px 40px rgba(145, 70, 255, 0.25); }
+        .link-card.ig:hover { box-shadow: inset 0 0 30px rgba(225, 48, 108, 0.15), 0 15px 40px rgba(225, 48, 108, 0.25); }
+        .link-card.dc:hover { box-shadow: inset 0 0 30px rgba(88, 101, 242, 0.15), 0 15px 40px rgba(88, 101, 242, 0.25); }
+        .link-card.sp:hover { box-shadow: inset 0 0 30px rgba(29, 185, 84, 0.2), 0 15px 40px rgba(29, 185, 84, 0.3); }
+        .link-card.tt:hover { box-shadow: inset 0 0 30px rgba(37, 244, 238, 0.15), 0 15px 40px rgba(254, 44, 85, 0.2); }
 
-        .link-card.discord-card:hover::before { background: radial-gradient(circle at center, rgba(88, 101, 242, 0.35) 0%, rgba(88, 101, 242, 0.05) 50%, transparent 70%); opacity: 1; }
+        .icon-wrapper { width: 34px; height: 34px; margin-right: 1.5rem; display: flex; justify-content: center; align-items: center; flex-shrink: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 2;}
+        .link-card:hover .icon-wrapper { transform: scale(1.2) rotate(-5deg); }
 
+        .icon { width: 100%; height: 100%; fill: #ffffff; transition: filter 0.4s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .link-card.yt:hover .icon { filter: drop-shadow(0 0 12px var(--yt)) drop-shadow(0 0 24px var(--yt)); }
+        .link-card.tw:hover .icon { filter: drop-shadow(0 0 12px var(--tw)) drop-shadow(0 0 24px var(--tw)); }
+        .link-card.ig:hover .icon { filter: drop-shadow(0 0 12px var(--ig)) drop-shadow(0 0 24px var(--ig)); }
+        .link-card.dc:hover .icon { filter: drop-shadow(0 0 12px var(--dc)) drop-shadow(0 0 24px var(--dc)); }
+        .link-card.sp:hover .icon { filter: drop-shadow(0 0 12px var(--sp)) drop-shadow(0 0 24px var(--sp)); }
+
+        .tt-icon { overflow: visible; }
+        .tt-layer-cyan { fill: var(--tt-cyan); transform: translate(0, 0); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .tt-layer-red { fill: var(--tt-red); transform: translate(0, 0); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .tt-layer-white { fill: #ffffff; position: relative; z-index: 3; }
+        .link-card.tt:hover .tt-layer-cyan { transform: translate(-1.5px, -1.5px); opacity: 1; filter: drop-shadow(0 0 8px var(--tt-cyan)); }
+        .link-card.tt:hover .tt-layer-red { transform: translate(1.5px, 1.5px); opacity: 1; filter: drop-shadow(0 0 8px var(--tt-red)); }
+
+        .text-content { flex-grow: 1; text-align: left; position: relative; z-index: 2;}
+        .link-title { 
+            font-size: 1.15rem; 
+            font-weight: 700; 
+            margin-bottom: 0.25rem; 
+            transition: text-shadow 0.4s ease, color 0.4s ease; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Festerer Textschatten für Lesbarkeit */
+        }
         
+        .link-card.yt:hover .link-title { text-shadow: 0 0 15px rgba(255,0,0,0.8), 0 2px 4px rgba(0,0,0,0.8); }
+        .link-card.tw:hover .link-title { text-shadow: 0 0 15px rgba(145,70,255,0.8), 0 2px 4px rgba(0,0,0,0.8); }
+        .link-card.ig:hover .link-title { text-shadow: 0 0 15px rgba(225,48,108,0.8), 0 2px 4px rgba(0,0,0,0.8); }
+        .link-card.tt:hover .link-title { text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.8); }
+        .link-card.dc:hover .link-title { text-shadow: 0 0 15px rgba(88,101,242,0.8), 0 2px 4px rgba(0,0,0,0.8); }
+        .link-card.sp:hover .link-title { text-shadow: 0 0 15px rgba(29,185,84,0.8), 0 2px 4px rgba(0,0,0,0.8); }
 
-        .link-card.tiktok-card:hover::before { 
-
-            background: radial-gradient(circle at 30% 50%, rgba(255, 0, 80, 0.3) 0%, transparent 60%),
-
-                        radial-gradient(circle at 75% 50%, rgba(0, 242, 254, 0.3) 0%, transparent 60%); 
-
-            opacity: 1; 
-
+        .link-meta { 
+            font-size: 0.95rem; 
+            font-weight: 500;
+            color: var(--text-muted); 
+            transition: color 0.4s ease; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
-
-
-        .link-card.youtube-card:hover .link-title { color: #ffb3c6; }
-
-        .link-card.twitch-card:hover .link-title { color: #e1d0ff; }
-
-        .link-card.instagram-card:hover .link-title { color: #ffccd9; }
-
-        .link-card.discord-card:hover .link-title { color: #d6daff; }
-
-        .link-card.tiktok-card:hover .link-title { color: #d6faff; }
-
-
-        footer {
-
-            margin-top: 3.5rem; font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em;
-
-            text-transform: uppercase; opacity: 0; animation: fadeIn 1s ease 0.6s forwards;
-
-        }
-
-        @keyframes fadeIn { to { opacity: 1; } }
-
-
-        /* INTEGRATED MODAL AUTHENTICATION */
-
-        .auth-overlay {
-
-            display: none;
-
-            position: fixed;
-
-            inset: 0;
-
-            background: rgba(4, 5, 10, 0.75);
-
-            backdrop-filter: blur(14px);
-
-            -webkit-backdrop-filter: blur(14px);
-
-            z-index: 500;
-
-            justify-content: center;
-
-            align-items: center;
-
-            padding: 1rem;
-
-        }
-
-        .auth-card {
-
-            background: hsla(var(--theme-hue), var(--theme-sat), 10%, 0.98);
-
-            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.15);
-
-            width: 100%;
-
-            max-width: 360px;
-
-            padding: 1.8rem;
-
-            border-radius: 24px;
-
-            text-align: center;
-
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-
-            transform: scale(0.85);
-
-            opacity: 0;
-
-            transition: all 0.5s var(--spring-bounce);
-
-        }
-
-        .auth-overlay.active { display: flex; }
-
-        .auth-overlay.active .auth-card { transform: scale(1); opacity: 1; }
-
+        .link-card:hover .link-meta { color: #d1fae5; }
         
-
-        .auth-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
-
-        .auth-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; }
-
-        .auth-card input {
-
-            width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-
-            padding: 0.7rem; border-radius: 12px; color: #fff; font-size: 1rem; text-align: center; outline: none;
-
-        }
-
-        .auth-card .error-msg { color: var(--youtube); font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; display: none; }
-
-        
-
-        .auth-buttons { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
-
-        .auth-btn {
-
-            flex: 1; padding: 0.7rem; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; font-size: 0.9rem; transition: transform 0.2s;
-
-        }
-
-        .auth-submit { background: #fff; color: #0f172a; }
-
-        .auth-cancel { background: rgba(255,255,255,0.06); color: var(--text-main); }
-
-
-        /* LIVE EDIT PARAMETERS ACTIVATED */
-
-        body.edit-mode .link-card { pointer-events: none; }
-
-        body.edit-mode .link-title, 
-
-        body.edit-mode .profile h1, 
-
-        body.edit-mode .profile p {
-
-            pointer-events: auto;
-
-            background: rgba(255, 255, 255, 0.1);
-
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
-
-        }
-
-
-        /* CONFIGURATION CONTROL DASHBOARD */
-
-        .editor-panel {
-
-            display: none;
-
-            width: 100%;
-
-            margin-top: 2.5rem;
-
-            background: hsla(var(--theme-hue), var(--theme-sat), 12%, 0.4);
-
-            border: 1px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.1);
-
-            padding: 1.6rem;
-
-            border-radius: 24px;
-
-            backdrop-filter: blur(20px);
-
-            -webkit-backdrop-filter: blur(20px);
-
-            text-align: left;
-
-            opacity: 0;
-
-            transform: translateY(20px);
-
-            transition: all 0.5s var(--spring-bounce);
-
-            max-height: 80vh;
-
-            overflow-y: auto;
-
-        }
-
-        body.edit-mode .editor-panel { display: block; opacity: 1; transform: translateY(0); }
-
-        .editor-panel h3 { margin-bottom: 0.2rem; font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
-
-        .editor-panel label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); display: block; margin-top: 0.8rem; text-transform: uppercase; letter-spacing: 0.02em; }
-
-        .editor-panel input, .editor-panel select {
-
-            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-
-            padding: 0.65rem; border-radius: 12px; color: #fff; font-size: 0.9rem; margin-top: 0.25rem; outline: none;
-
-            transition: border-color 0.2s;
-
-        }
-
-        
-
-        .link-editor-block {
-
-            border-left: 2px solid hsla(var(--theme-hue), var(--theme-sat), 50%, 0.12);
-
-            padding-left: 0.8rem;
-
-            margin-top: 1rem;
-
-            margin-bottom: 1.5rem;
-
-        }
-
-        .link-editor-block h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
-
-        .icon-config-row { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.25rem; }
-
-
-        .editor-panel button.save-action {
-
-            width: 100%; margin-top: 1.6rem; background: #f8fafc; color: #0f172a; border: none;
-
-            padding: 0.85rem; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s ease;
-
-        }
-
-        .editor-panel button.save-action:hover { transform: scale(1.02); background: #fff; }
+        .arrow { color: rgba(0, 255, 128, 0.5); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateX(-15px); font-size: 1.5rem; position: relative; z-index: 2;}
+        .link-card:hover .arrow { opacity: 1; transform: translateX(0); color: #00ff80; text-shadow: 0 0 12px rgba(0,255,128,0.8); }
+
+        @keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
+        @keyframes springUp { to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.05); opacity: 0.95; } }
 
     </style>
-
 </head>
-
 <body>
 
-    <button class="admin-trigger" id="editBtn" title="Admin Workspace Control Hub">
-    <i data-lucide="settings"></i>
-</button>
-    <!-- AUTH MODAL SYSTEM -->
-
-    <div class="auth-overlay" id="authOverlay">
-
-        <div class="auth-card">
-
-            <h3>Admin Verification</h3>
-
-            <p>Please type your secure access key.</p>
-
-            <input type="password" id="passInput" placeholder="">
-
-            <div class="error-msg" id="errorMsg">Incorrect Passphrase.</div>
-
-            <div class="auth-buttons">
-
-                <button class="auth-btn auth-cancel" id="authCancel">Cancel</button>
-
-                <button class="auth-btn auth-submit" id="authSubmit">Verify</button>
-
-            </div>
-
-        </div>
-
-    </div>
-
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
 
     <div class="container">
-
-        <!-- Profile Segment -->
-
-        <div class="profile">
-
-            <div class="avatar-container" id="avatarContainer">
-
-                <div class="avatar-glow" id="avatarGlowRing"></div>
-
-                <div class="avatar-frame">
-
-                    <img id="avatarImg" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=256&auto=format&fit=crop" alt="Avatar Asset" class="avatar">
-
-                    <div class="avatar-brand-overlay" id="avatarBrandOverlay"></div>
-
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="avatar-container">
+                <div class="avatar-ring"></div>
+                <div class="avatar">
+                    <img src="PP_2026_02.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" alt="Profile Pic">
                 </div>
-
             </div>
-
-            <h1 id="profileName" contenteditable="false">Your Name / Handle</h1>
-
-            <p id="profileBio" contenteditable="false">Content Creator & Streamer</p>
-
+            <h1 class="username">ir_Fabi</h1>
+            <p class="bio">Hellouu, hier findest du jegliche Art von geistigem Dünnpfiff den ich so ins World Wide Web schieße - 🦄</p>
         </div>
 
-
-        <!-- Dynamic Links Matrix Stack -->
-
-        <div class="links-stack" id="linksContainer">
-
+        <div class="links-grid">
             
-
-            <!-- YouTube Main -->
-
-            <div class="link-card youtube-card" data-id="yt1">
-
-                <div class="card-main-row" onclick="navigateTo('yt1')">
-
-                    <div class="icon-wrapper" id="icon-yt1"></div>
-
-                    <span class="link-title" contenteditable="false">YouTube Channel</span>
-
-                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
-
+            <!-- YouTube - ir_Fabi -->
+            <a href="https://youtube.com/@ir_Fabi" target="_blank" class="link-card yt">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </div>
-
-                <div class="live-media-viewport"><iframe id="frame-yt1" src=""></iframe></div>
-
-            </div>
-
-
-            <!-- YouTube Secondary -->
-
-            <div class="link-card youtube-card" data-id="yt2">
-
-                <div class="card-main-row" onclick="navigateTo('yt2')">
-
-                    <div class="icon-wrapper" id="icon-yt2"></div>
-
-                    <span class="link-title" contenteditable="false">YouTube 2 (Clips & VODs)</span>
-
-                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
-
+                <div class="text-content">
+                    <p class="link-title">YouTube - ir_Fabi</p>
+                    <p class="link-meta">Die regelmäßigsten uploads (trust)</p>
                 </div>
+                <span class="arrow">›</span>
+            </a>
 
-                <div class="live-media-viewport"><iframe id="frame-yt2" src=""></iframe></div>
-
-            </div>
-
-
-            <!-- Twitch -->
-
-            <div class="link-card twitch-card" data-id="twitch">
-
-                <div class="card-main-row" onclick="navigateTo('twitch')">
-
-                    <div class="icon-wrapper" id="icon-twitch"></div>
-
-                    <span class="link-title" contenteditable="false">Twitch Stream</span>
-
-                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
-
+            <!-- YouTube - Internet Rambos -->
+            <a href="https://youtube.com/@Internetrambos" target="_blank" class="link-card yt">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </div>
-
-                <div class="live-media-viewport"><iframe id="frame-twitch" src=""></iframe></div>
-
-            </div>
-
-
-            <!-- Instagram -->
-
-            <div class="link-card instagram-card" data-id="insta">
-
-                <div class="card-main-row" onclick="navigateTo('insta')">
-
-                    <div class="icon-wrapper" id="icon-insta"></div>
-
-                    <span class="link-title" contenteditable="false">Instagram Portfolio</span>
-
-                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
-
+                <div class="text-content">
+                    <p class="link-title">YouTube - Internet Rambos</p>
+                    <p class="link-meta">Gruppen stuff (HOLY PEAK)</p>
                 </div>
+                <span class="arrow">›</span>
+            </a>
 
-                <div class="live-media-viewport"><iframe id="frame-insta" src=""></iframe></div>
-
-            </div>
-
-
-            <!-- TikTok -->
-
-            <div class="link-card tiktok-card" data-id="tiktok">
-
-                <div class="card-main-row" onclick="navigateTo('tiktok')">
-
-                    <div class="icon-wrapper" id="icon-tiktok"></div>
-
-                    <span class="link-title" contenteditable="false">TikTok</span>
-
-                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
-
+            <!-- Twitch - ir_Fabi -->
+            <a href="https://twitch.tv/ir_Fabi" target="_blank" class="link-card tw">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.43l-3.428 3.429v-3.429H5.143V1.714h15.429Z"/></svg>
                 </div>
-
-                <div class="live-media-viewport"><iframe id="frame-tiktok" src=""></iframe></div>
-
-            </div>
-
-
-            <!-- Discord -->
-
-            <div class="link-card discord-card" data-id="discord">
-
-                <div class="card-main-row" onclick="navigateTo('discord')">
-
-                    <div class="icon-wrapper" id="icon-discord"></div>
-
-                    <span class="link-title" contenteditable="false">The Discord Server</span>
-
-                    <i data-lucide="arrow-right" class="arrow-icon" data-lucide-size="18"></i>
-
+                <div class="text-content">
+                    <p class="link-title">Twitch - ir_Fabi</p>
+                    <p class="link-meta">quality streaming Erfahrung</p>
                 </div>
+                <span class="arrow">›</span>
+            </a>
 
-                <div class="live-media-viewport"><iframe id="frame-discord" src=""></iframe></div>
+            <!-- Insta - ir_Fabi -->
+            <a href="https://instagram.com/ir_Fabi" target="_blank" class="link-card ig">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </div>
+                <div class="text-content">
+                    <p class="link-title">Insta - ir_Fabi</p>
+                    <p class="link-meta">rt, alles ist zu erwarten</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
 
-            </div>
+            <!-- TikTok - ir_Fabi -->
+            <a href="https://tiktok.com/@ir_Fabi" target="_blank" class="link-card tt">
+                <div class="icon-wrapper">
+                    <svg class="icon tt-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path class="tt-layer-cyan" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.61 4.17 1.22 1.34 2.95 2.15 4.74 2.38v3.94c-1.78-.17-3.52-.89-4.87-2.09-.07-.06-.13-.13-.23-.24v6.61c.01 2.72-1.31 5.37-3.6 6.73-2.3 1.39-5.32 1.42-7.65.08-2.42-1.37-3.83-4.14-3.57-6.94.24-2.73 2.19-5.11 4.88-5.69.47-.1 1-.14 1.48-.14v3.91c-.4-.01-.81.04-1.2.17-1.12.36-1.95 1.41-2.02 2.58-.08 1.43.95 2.76 2.37 2.94 1.44.2 2.84-.71 3.12-2.14.08-.38.09-.77.09-1.15V.02z" />
+                        <path class="tt-layer-red" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.61 4.17 1.22 1.34 2.95 2.15 4.74 2.38v3.94c-1.78-.17-3.52-.89-4.87-2.09-.07-.06-.13-.13-.23-.24v6.61c.01 2.72-1.31 5.37-3.6 6.73-2.3 1.39-5.32 1.42-7.65.08-2.42-1.37-3.83-4.14-3.57-6.94.24-2.73 2.19-5.11 4.88-5.69.47-.1 1-.14 1.48-.14v3.91c-.4-.01-.81.04-1.2.17-1.12.36-1.95 1.41-2.02 2.58-.08 1.43.95 2.76 2.37 2.94 1.44.2 2.84-.71 3.12-2.14.08-.38.09-.77.09-1.15V.02z" />
+                        <path class="tt-layer-white" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.61 4.17 1.22 1.34 2.95 2.15 4.74 2.38v3.94c-1.78-.17-3.52-.89-4.87-2.09-.07-.06-.13-.13-.23-.24v6.61c.01 2.72-1.31 5.37-3.6 6.73-2.3 1.39-5.32 1.42-7.65.08-2.42-1.37-3.83-4.14-3.57-6.94.24-2.73 2.19-5.11 4.88-5.69.47-.1 1-.14 1.48-.14v3.91c-.4-.01-.81.04-1.2.17-1.12.36-1.95 1.41-2.02 2.58-.08 1.43.95 2.76 2.37 2.94 1.44.2 2.84-.71 3.12-2.14.08-.38.09-.77.09-1.15V.02z" />
+                    </svg>
+                </div>
+                <div class="text-content">
+                    <p class="link-title">TikTok - ir_Fabi</p>
+                    <p class="link-meta">short form Beschallung</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
 
+            <!-- Discord - Fabis KELLER -->
+            <a href="https://discord.gg/DWPD3CE7xc" target="_blank" class="link-card dc">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.298 12.298 0 0 1-1.873.894.077.077 0 0 1-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
+                </div>
+                <div class="text-content">
+                    <p class="link-title">Discord - Fabis KELLER</p>
+                    <p class="link-meta">join dem DC du Hund</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
+
+            <!-- Podcast - psssst 🤫 -->
+            <a href="podcast.html" class="link-card sp">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.54.659.301 1.02zm1.44-3.3c-.301.42-.84.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.48.119-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.84.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.2-1.261 11.22-1.021 15.72 1.621.54.3.84 1.02.54 1.56-.24.6-.96.84-1.68.3z"/></svg>
+                </div>
+                <div class="text-content">
+                    <p class="link-title">Podcast - psssst 🤫</p>
+                    <p class="link-meta">coming soon</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
 
         </div>
-
-
-        <!-- PANEL DASHBOARD CORE -->
-
-        <div class="editor-panel" id="editorPanel">
-
-            <h3><i data-lucide="sliders" data-lucide-size="18"></i> Configuration Panel</h3>
-
-            
-
-            <div style="background: rgba(255,255,255,0.03); padding: 0.9rem; border-radius: 14px; margin-top: 0.5rem; border: 1px solid rgba(255,255,255,0.04);">
-
-                <h4 style="font-size:0.8rem; text-transform:uppercase; color:#fff; letter-spacing:0.05em;">Global Design Styles</h4>
-
-                <label>Glow Blur Radius</label>
-
-                <input type="range" id="editGlowBlur" min="5" max="50" value="24" style="padding:0; margin-top:0.4rem; background:none; border:none; cursor:pointer;">
-
-                <label>Glow Aura Profile</label>
-
-                <select id="editGlowTheme">
-
-                    <option value="rgb">Dynamic RGB Wave</option>
-
-                    <option value="white">Minimal Neon White</option>
-
-                </select>
-
-                <label>Main Avatar Photo URL</label>
-
-                <input type="text" id="editAvatarUrl" placeholder="https://...">
-
-            </div>
-
-
-            <h4 style="font-size:0.85rem; text-transform:uppercase; color:#fff; letter-spacing:0.05em; margin-top:1.5rem; margin-bottom:0.5rem;">Link & Embed Settings</h4>
-
-            
-
-            <!-- STACK LINK SLOT ARCHITECTURE EDITORS -->
-
-            <div class="link-editor-block">
-
-                <h4>YouTube Channel Main</h4>
-
-                <label>Destination Link</label>
-
-                <input type="text" id="url-yt1" placeholder="https://youtube.com/...">
-
-                <label>Live Player Embed URL</label>
-
-                <input type="text" id="embed-yt1" placeholder="https://www.youtube.com/embed/...">
-
-                <div class="icon-config-row">
-
-                    <label>Icon Type</label>
-
-                    <select id="iconType-yt1" onchange="togglePfpInput('yt1')">
-
-                        <option value="brand">Official Brand Logo</option>
-
-                        <option value="pfp">Custom Image / Profile Pic</option>
-
-                    </select>
-
-                    <input type="text" id="pfpUrl-yt1" placeholder="Image URL" style="display:none;">
-
-                </div>
-
-            </div>
-
-
-            <div class="link-editor-block">
-
-                <h4>YouTube Secondary Channel</h4>
-
-                <label>Destination Link</label>
-
-                <input type="text" id="url-yt2" placeholder="https://...">
-
-                <label>Live Player Embed URL</label>
-
-                <input type="text" id="embed-yt2" placeholder="https://www.youtube.com/embed/...">
-
-                <div class="icon-config-row">
-
-                    <label>Icon Type</label>
-
-                    <select id="iconType-yt2" onchange="togglePfpInput('yt2')">
-
-                        <option value="brand">Official Brand Logo</option>
-
-                        <option value="pfp">Custom Image / Profile Pic</option>
-
-                    </select>
-
-                    <input type="text" id="pfpUrl-yt2" placeholder="Image URL" style="display:none;">
-
-                </div>
-
-            </div>
-
-
-            <div class="link-editor-block">
-
-                <h4>Twitch Live Stream</h4>
-
-                <label>Destination Link</label>
-
-                <input type="text" id="url-twitch" placeholder="https://twitch.tv/...">
-
-                <label>Twitch Chat/Player Embed URL</label>
-
-                <input type="text" id="embed-twitch" placeholder="https://player.twitch.tv/?channel=...">
-
-                <div class="icon-config-row">
-
-                    <label>Icon Type</label>
-
-                    <select id="iconType-twitch" onchange="togglePfpInput('twitch')">
-
-                        <option value="brand">Official Brand Logo</option>
-
-                        <option value="pfp">Custom Image / Profile Pic</option>
-
-                    </select>
-
-                    <input type="text" id="pfpUrl-twitch" placeholder="Image URL" style="display:none;">
-
-                </div>
-
-            </div>
-
-
-            <div class="link-editor-block">
-
-                <h4>Instagram Feed</h4>
-
-                <label>Destination Link</label>
-
-                <input type="text" id="url-insta" placeholder="https://...">
-
-                <label>Instagram Post Embed URL</label>
-
-                <input type="text" id="embed-insta" placeholder="https://www.instagram.com/p/.../embed">
-
-                <div class="icon-config-row">
-
-                    <label>Icon Type</label>
-
-                    <select id="iconType-insta" onchange="togglePfpInput('insta')">
-
-                        <option value="brand">Official Brand Logo</option>
-
-                        <option value="pfp">Custom Image / Profile Pic</option>
-
-                    </select>
-
-                    <input type="text" id="pfpUrl-insta" placeholder="Image URL" style="display:none;">
-
-                </div>
-
-            </div>
-
-
-            <div class="link-editor-block">
-
-                <h4>TikTok Account</h4>
-
-                <label>Destination Link</label>
-
-                <input type="text" id="url-tiktok" placeholder="https://...">
-
-                <label>TikTok Embed URL</label>
-
-                <input type="text" id="embed-tiktok" placeholder="https://www.tiktok.com/embed/...">
-
-                <div class="icon-config-row">
-
-                    <label>Icon Type</label>
-
-                    <select id="iconType-tiktok" onchange="togglePfpInput('tiktok')">
-
-                        <option value="brand">Official Brand Logo</option>
-
-                        <option value="pfp">Custom Image / Profile Pic</option>
-
-                    </select>
-
-                    <input type="text" id="pfpUrl-tiktok" placeholder="Image URL" style="display:none;">
-
-                </div>
-
-            </div>
-
-
-            <div class="link-editor-block">
-
-                <h4>Discord Server Community</h4>
-
-                <label>Invite Link Link</label>
-
-                <input type="text" id="url-discord" placeholder="https://...">
-
-                <label>Discord Server Widget Embed URL</label>
-
-                <input type="text" id="embed-discord" placeholder="https://discord.gg/widget?id=...">
-
-                <div class="icon-config-row">
-
-                    <label>Icon Type</label>
-
-                    <select id="iconType-discord" onchange="togglePfpInput('discord')">
-
-                        <option value="brand">Official Brand Logo</option>
-
-                        <option value="pfp">Custom Image / Profile Pic</option>
-
-                    </select>
-
-                    <input type="text" id="pfpUrl-discord" placeholder="Image URL" style="display:none;">
-
-                </div>
-
-            </div>
-
-
-            <button class="save-action" id="saveBtn">Exit & Save Configuration</button>
-
-        </div>
-
-
-        <footer>
-
-            &copy; 2026 ir_Fabi.
-
-        </footer>
-
     </div>
 
-
-    <script>
-// Konami Code Easter Egg
-const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let konamiIndex = 0;
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            triggerPartyMode();
-            konamiIndex = 0;
-        }
-    } else {
-        konamiIndex = 0;
-    }
-});
-
-function triggerPartyMode() {
-    document.body.style.animation = "gradientBG 1s linear infinite";
-    alert("Party Mode Activated! ??");
-    setTimeout(() => {
-        document.body.style.animation = "gradientBG 18s ease infinite";
-    }, 5000); // Resets after 5 seconds
-}
-
-let avatarClickCount = 0;
-document.getElementById('avatarContainer').addEventListener('click', () => {
-    avatarClickCount++;
-    if (avatarClickCount === 5) {
-        const avatar = document.getElementById('avatarImg');
-        avatar.style.transition = "transform 1s ease-in-out, border-radius 1s";
-        avatar.style.transform = "rotate(360deg) scale(1.2)";
-        avatar.style.borderRadius = "50%";
-        
-        console.log("Secret Unlocked: Power Star Mode!");
-        
-        // Reset after 3 seconds
-        setTimeout(() => {
-            avatar.style.transform = "rotate(0deg) scale(1)";
-            avatar.style.borderRadius = "32% 68% 68% 32% / 40% 36% 64% 60%";
-            avatarClickCount = 0;
-        }, 3000);
-    }
-});
-
-// Change tab title when user leaves the page
-const originalTitle = document.title;
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        document.title = "Wo willst du hin, gööörrrr";
-    } else {
-        document.title = originalTitle;
-    }
-});
-        const brandIconUrls = {
-
-            yt1: "https://cdn.simpleicons.org/youtube/f8fafc",
-
-            yt2: "https://cdn.simpleicons.org/youtube/f8fafc",
-
-            twitch: "https://cdn.simpleicons.org/twitch/f8fafc",
-
-            insta: "https://cdn.simpleicons.org/instagram/f8fafc",
-
-            tiktok: "https://cdn.simpleicons.org/tiktok/f8fafc",
-
-            discord: "https://cdn.simpleicons.org/discord/f8fafc"
-
-        };
-
-
-        const brandIcons = {
-
-            yt1: `<img src="${brandIconUrls.yt1}" class="brand-icon-img" alt="YouTube">`,
-
-            yt2: `<img src="${brandIconUrls.yt2}" class="brand-icon-img" alt="YouTube">`,
-
-            twitch: `<img src="${brandIconUrls.twitch}" class="brand-icon-img" alt="Twitch">`,
-
-            insta: `<img src="${brandIconUrls.insta}" class="brand-icon-img" alt="Instagram">`,
-
-            tiktok: `<img src="${brandIconUrls.tiktok}" class="brand-icon-img" alt="TikTok">`,
-
-            discord: `<img src="${brandIconUrls.discord}" class="brand-icon-img" alt="Discord">`
-
-        };
-
-
-        const brandColors = {
-
-            yt1: "var(--youtube)",
-
-            yt2: "var(--youtube)",
-
-            twitch: "var(--twitch)",
-
-            insta: "var(--instagram)",
-
-            discord: "var(--discord)",
-
-            tiktok: "linear-gradient(90deg, var(--tiktok-red), var(--tiktok-blue))"
-
-        };
-
-
-       let siteData = {
-    name: "ir_Fabi",             // Change this to your Display Name
-    bio: "Hellouu, hier findest du jegliche Art von geistigem Dünnpfiff den ich so ins World Wide Web schieße - 🦄",        // Change this to your Bio
-    avatar: "https://yt3.googleusercontent.com/w-xHu2awl7Hba9lkrMUgXIBw4eMBM6nkJ273J1ESoDWv90mRJ1iERcdzNs_K0cKImYDw8LuS=s160-c-k-c0x00ffffff-no-rj", // Paste your direct image link here
-    glowBlur: "24",
-    glowTheme: "rgb",
-    links: {
-        yt1: { title: "YouTube - ir_Fabi", url: "https://www.youtube.com/@ir_fabi", iconType: "brand", pfpUrl: "", embedUrl: "" },
-        yt2: { title: "YouTube - Internet Rambos", url: "https://www.youtube.com/@InternetRambos", iconType: "brand", pfpUrl: "", embedUrl: "" },
-        twitch: { title: "Twitch - ir_Fabi", url: "https://www.twitch.tv/ir_fabi", iconType: "brand", pfpUrl: "", embedUrl: "" },
-        insta: { title: "Instagram - ir_Fabi", url: "https://www.instagram.com/ir_fabi/", iconType: "brand", pfpUrl: "", embedUrl: "" },
-        tiktok: { title: "TikTok - ir_Fabi", url: "https://tiktok.com/@ir_fabi", iconType: "brand", pfpUrl: "", embedUrl: "" },
-        discord: { title: "Discord - Fabis KELLER", url: "https://discord.gg/DWPD3CE7xc", iconType: "brand", pfpUrl: "", embedUrl: "" }
-    }
-};
-
-
-        function loadCachedData() {
-
-            const saved = localStorage.getItem('profile_links_data');
-
-            if (saved) {
-
-                siteData = JSON.parse(saved);
-
-            }
-
-            renderData();
-
-            setupInteractiveTracking();
-
-        }
-
-
-        /* --- THE SMART HUE MATRIX ENGINE --- */
-
-        function extractArtworkHue(url) {
-
-            // Converts any target string URL index cleanly into an explicit deterministic tint loop
-
-            let codeSum = 0;
-
-            for (let i = 0; i < url.length; i++) {
-
-                codeSum += url.charCodeAt(i);
-
-            }
-
-            // Maps matching balance cleanly onto the 360 color degree dial wheel
-
-            const targetHue = codeSum % 360;
-
-            document.documentElement.style.setProperty('--theme-hue', targetHue);
-
-        }
-
-
-        function renderData() {
-
-            document.getElementById('profileName').innerText = siteData.name;
-
-            document.getElementById('profileBio').innerText = siteData.bio;
-
-            document.getElementById('avatarImg').src = siteData.avatar;
-
-            document.getElementById('editAvatarUrl').value = siteData.avatar;
-
-            
-
-            // Comment it out or replace it to force the green hue
-// extractArtworkHue(siteData.avatar); 
-document.documentElement.style.setProperty('--theme-hue', 120);
-
-
-            document.getElementById('editGlowBlur').value = siteData.glowBlur || "24";
-
-            document.getElementById('editGlowTheme').value = siteData.glowTheme || "rgb";
-
-            document.documentElement.style.setProperty('--glow-blur', (siteData.glowBlur || "24") + "px");
-
-            resetDefaultGlow();
-
-
-            Object.keys(siteData.links).forEach(key => {
-
-                const card = document.querySelector(`[data-id="${key}"]`);
-
-                if (card) {
-
-                    card.querySelector('.link-title').innerText = siteData.links[key].title;
-
-                    
-
-                    document.getElementById(`url-${key}`).value = siteData.links[key].url;
-
-                    document.getElementById(`embed-${key}`).value = siteData.links[key].embedUrl || "";
-
-                    document.getElementById(`iconType-${key}`).value = siteData.links[key].iconType || "brand";
-
-                    
-
-                    const iframe = document.getElementById(`frame-${key}`);
-
-                    if (siteData.links[key].embedUrl && siteData.links[key].embedUrl.trim() !== "") {
-
-                        card.classList.add('can-expand');
-
-                        if (iframe) iframe.src = siteData.links[key].embedUrl;
-
-                    } else {
-
-                        card.classList.remove('can-expand');
-
-                        if (iframe) iframe.src = "";
-
-                    }
-
-                    
-
-                    const pfpField = document.getElementById(`pfpUrl-${key}`);
-
-                    pfpField.value = siteData.links[key].pfpUrl || "";
-
-                    
-
-                    togglePfpInput(key);
-
-
-                    const wrapper = document.getElementById(`icon-${key}`);
-
-                    if (siteData.links[key].iconType === "pfp" && siteData.links[key].pfpUrl) {
-
-                        wrapper.innerHTML = `<img src="${siteData.links[key].pfpUrl}" class="icon-pfp" alt="pfp">`;
-
-                    } else {
-
-                        wrapper.innerHTML = brandIcons[key];
-
-                    }
-
-                }
-
-            });
-
-            lucide.createIcons();
-
-        }
-
-
-       function resetDefaultGlow() {
-    if (siteData.glowTheme === "white") {
-        document.documentElement.style.setProperty('--glow-gradient', "white");
-    } else {
-        // Force the glow to be a beautiful Green -> Mint spectrum
-        document.documentElement.style.setProperty('--glow-gradient', "linear-gradient(45deg, #22c55e, #10b981, #34d399)");
-    }
-}
-
-
-        function setupInteractiveTracking() {
-
-            const avatarContainer = document.getElementById('avatarContainer');
-
-            const brandOverlay = document.getElementById('avatarBrandOverlay');
-
-
-            Object.keys(siteData.links).forEach(key => {
-
-                const card = document.querySelector(`[data-id="${key}"]`);
-
-                
-
-                if (card) {
-
-                    card.addEventListener('mouseenter', () => {
-
-                        if (siteData.links[key].embedUrl && siteData.links[key].embedUrl.trim() !== "") {
-
-                            document.documentElement.style.setProperty('--glow-gradient', brandColors[key]);
-
-                            
-
-                            let targetImgSrc = brandIconUrls[key];
-
-                            if (siteData.links[key].iconType === "pfp" && siteData.links[key].pfpUrl) {
-
-                                targetImgSrc = siteData.links[key].pfpUrl;
-
-                            }
-
-                            brandOverlay.innerHTML = `<img src="${targetImgSrc}" alt="Target Logo">`;
-
-                            avatarContainer.classList.add('swapped');
-
-                        }
-
-                    });
-
-
-                    card.addEventListener('mouseleave', () => {
-
-                        avatarContainer.classList.remove('swapped');
-
-                        resetDefaultGlow();
-
-                    });
-
-                }
-
-            });
-
-        }
-
-
-        function navigateTo(id) {
-
-            if(!document.body.classList.contains('edit-mode')) {
-
-                window.open(siteData.links[id].url, '_blank');
-
-            }
-
-        }
-
-
-        function togglePfpInput(key) {
-
-            const selectValue = document.getElementById(`iconType-${key}`).value;
-
-            const inputEl = document.getElementById(`pfpUrl-${key}`);
-
-            if (selectValue === "pfp") {
-
-                inputEl.style.display = "block";
-
-            } else {
-
-                inputEl.style.display = "none";
-
-            }
-
-        }
-
-
-        // Live Admin Panel Adjustments
-
-        document.getElementById('editGlowBlur').addEventListener('input', (e) => {
-
-            document.documentElement.style.setProperty('--glow-blur', e.target.value + "px");
-
-        });
-
-        document.getElementById('editGlowTheme').addEventListener('change', (e) => {
-
-            siteData.glowTheme = e.target.value;
-
-            resetDefaultGlow();
-
-        });
-
-
-        // Modal Controls
-
-        const authOverlay = document.getElementById('authOverlay');
-
-        const passInput = document.getElementById('passInput');
-
-        const errorMsg = document.getElementById('errorMsg');
-
-
-        document.getElementById('editBtn').addEventListener('click', () => {
-
-            if (document.body.classList.contains('edit-mode')) {
-
-                exitEditMode(true);
-
-                return;
-
-            }
-
-            passInput.value = "";
-
-            errorMsg.style.display = "none";
-
-            authOverlay.classList.add('active');
-
-            passInput.focus();
-
-        });
-
-
-        document.getElementById('authCancel').addEventListener('click', () => {
-
-            authOverlay.classList.remove('active');
-
-        });
-
-
-        function verifyCredentials() {
-
-            if (passInput.value === "Franziistgay") {
-
-                authOverlay.classList.remove('active');
-
-                enterEditMode();
-
-            } else {
-
-                errorMsg.style.display = "block";
-
-            }
-
-        }
-
-
-        document.getElementById('authSubmit').addEventListener('click', verifyCredentials);
-
-        passInput.addEventListener('keydown', (e) => {
-
-            if (e.key === 'Enter') verifyCredentials();
-
-        });
-
-
-        function enterEditMode() {
-
-            document.body.classList.add('edit-mode');
-
-            document.getElementById('profileName').contentEditable = "true";
-
-            document.getElementById('profileBio').contentEditable = "true";
-
-            document.querySelectorAll('.link-title').forEach(el => el.contentEditable = "true");
-
-        }
-
-
-        function exitEditMode(shouldSave) {
-
-            if (shouldSave) {
-
-                siteData.name = document.getElementById('profileName').innerText;
-
-                siteData.bio = document.getElementById('profileBio').innerText;
-
-                siteData.avatar = document.getElementById('editAvatarUrl').value;
-
-                siteData.glowBlur = document.getElementById('editGlowBlur').value;
-
-                siteData.glowTheme = document.getElementById('editGlowTheme').value;
-
-
-                Object.keys(siteData.links).forEach(key => {
-
-                    const card = document.querySelector(`[data-id="${key}"]`);
-
-                    if (card) {
-
-                        siteData.links[key].title = card.querySelector('.link-title').innerText;
-
-                        siteData.links[key].url = document.getElementById(`url-${key}`).value;
-
-                        siteData.links[key].embedUrl = document.getElementById(`embed-${key}`).value;
-
-                        siteData.links[key].iconType = document.getElementById(`iconType-${key}`).value;
-
-                        siteData.links[key].pfpUrl = document.getElementById(`pfpUrl-${key}`).value;
-
-                    }
-
-                });
-
-
-                localStorage.setItem('profile_links_data', JSON.stringify(siteData));
-
-                renderData();
-
-            }
-
-
-            document.body.classList.remove('edit-mode');
-
-            document.getElementById('profileName').contentEditable = "false";
-
-            document.getElementById('profileBio').contentEditable = "false";
-
-            document.querySelectorAll('.link-title').forEach(el => el.contentEditable = "false");
-
-        }
-
-
-        document.getElementById('saveBtn').addEventListener('click', () => {
-
-            exitEditMode(true);
-
-        });
-
-
-        loadCachedData();
-
-    </script>
-
 </body>
-
-</html> 
+</html>
