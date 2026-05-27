@@ -98,6 +98,43 @@
             position: relative;
         }
 
+/* Verhindert das Flackern durch GPU-Rendering */
+* {
+    /* Stabilisiert die Ebenen */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    /* Verhindert, dass der Browser bei Skalierungen "zappelt" */
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+
+@media (max-width: 800px) {
+    /* 1. Hintergrund-Animation stoppen, da sie oft Flackern auslöst */
+    body {
+        animation: none !important;
+        background: var(--bg-deep) !important; /* Statische Farbe */
+    }
+
+    /* 2. Den Hintergrund-Staub (Dust) komplett ausblenden */
+    body::before {
+        display: none !important;
+    }
+
+    /* 3. Orbs statisch machen (Animation stoppen) */
+    .ambient-orb {
+        animation: none !important;
+        opacity: 0.3; /* Nur ganz leicht sichtbar */
+    }
+}
+
+/* Speziell für Elemente mit Blur-Effekt */
+.link-card {
+    /* Verhindert das Flackern bei backdrop-filter */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
