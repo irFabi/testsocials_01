@@ -33,10 +33,20 @@
             --sp: #1DB954; 
         }
 
+        /* =========================================
+           🖱️ CUSTOM CURSOR
+           ========================================= */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            /* Dein Standard-Cursor */
+            cursor: url('cursor.png'), auto;
+        }
+
+        /* Wichtig: Klickbare Elemente behalten Funktionalität */
+        a, button, .link-card, .avatar-container {
+            cursor: url('cursor.png'), pointer !important;
         }
 
         body {
@@ -184,6 +194,83 @@
             display: inline-block;
         }
 
+        /* =========================================
+           📅 STREAM SCHEDULE SECTION
+           ========================================= */
+        .schedule-section {
+            margin-bottom: 2.5rem;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeDown 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+
+        .schedule-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            padding-left: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .schedule-scroll-container {
+            display: flex;
+            gap: 1rem;
+            /* Added center alignment */
+            justify-content: center; 
+            padding-bottom: 1rem;
+        }
+
+        .schedule-card {
+            /* Let the cards share the width evenly */
+            flex: 1; 
+            /* Removed the strict 240px min-width so they scale nicely on mobile */
+            min-width: 0; 
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(145, 70, 255, 0.6);
+        }
+
+        .schedule-thumb {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .schedule-info { padding: 1rem; }
+
+        .schedule-date {
+            font-size: 0.8rem;
+            color: #00ff80;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .schedule-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
         .links-grid { display: flex; flex-direction: column; gap: 1.2rem; }
 
         .link-card {
@@ -237,7 +324,7 @@
         }
 
         /* =========================================
-           🔥 EXPANDABLE VIDEO EMBED FIX (SMOOTH & BOUNCY)
+           🔥 EXPANDABLE VIDEO EMBED FIX
            ========================================= */
         .link-card.expandable-yt {
             flex-direction: column;
@@ -301,7 +388,7 @@
         }
 
         /* =========================================
-           🎬 THUMBNAIL & PLAY BUTTON STYLING
+           🎬 THUMBNAIL & PLAY BUTTON
            ========================================= */
         .expandable-yt .thumbnail-wrapper {
             display: block;
@@ -356,6 +443,37 @@
         .expandable-yt .thumbnail-wrapper:hover .play-button {
             background: #ff0000;
             transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        /* =========================================
+           🔴 TWITCH LIVE BADGE & STYLING
+           ========================================= */
+        .live-badge {
+            display: inline-block;
+            background: #ff0000;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            margin-left: 8px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+            animation: pulseLive 1.5s infinite alternate;
+        }
+
+        @keyframes pulseLive {
+            0% { opacity: 1; transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.6); }
+            100% { opacity: 0.8; transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 0, 0, 0.9); }
+        }
+
+        .link-card.tw.is-live {
+            border-color: rgba(145, 70, 255, 0.8);
+            background: rgba(145, 70, 255, 0.15);
+            box-shadow: 0 0 25px rgba(145, 70, 255, 0.3);
+            order: -1;
         }
 
         /* Hover Glows für Brands */
@@ -514,9 +632,15 @@
             <p class="bio">Hellouu, hier findest du jegliche Art von geistigem Dünnpfiff den ich so ins World Wide Web schieße - 🦄</p>
         </div>
 
+        <div class="schedule-section">
+            <h2 class="schedule-title">📅 Die nächsten Streams!</h2>
+            <div class="schedule-scroll-container" id="schedule-container">
+                </div>
+        </div>
+
         <div class="links-grid">
 
-            <div class="link-card yt expandable-yt" tabindex="0">
+            <div class="link-card yt expandable-yt" tabindex="0" id="yt-main-card">
                 <div class="card-header">
                     <div class="icon-wrapper">
                         <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -538,7 +662,7 @@
                 </div>
             </div>
 
-            <div class="link-card yt expandable-yt" tabindex="0">
+            <div class="link-card yt expandable-yt" tabindex="0" id="yt-rambos-card">
                 <div class="card-header">
                     <div class="icon-wrapper">
                         <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -560,13 +684,13 @@
                 </div>
             </div>
 
-            <a href="https://twitch.tv/ir_Fabi" target="_blank" class="link-card tw">
+            <a href="https://twitch.tv/ir_Fabi" target="_blank" class="link-card tw" id="twitch-link">
                 <div class="icon-wrapper">
                     <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.43l-3.428 3.429v-3.429H5.143V1.714h15.429Z"/></svg>
                 </div>
                 <div class="text-content">
                     <p class="link-title">Twitch - ir_Fabi</p>
-                    <p class="link-meta">quality streaming Erfahrung</p>
+                    <p class="link-meta" id="twitch-meta">quality streaming Erfahrung</p>
                 </div>
                 <span class="arrow">›</span>
             </a>
@@ -632,5 +756,141 @@
         </div>
     </div>
 
+    <script>
+        /* =========================================================================
+           🛠️ DEIN KONTROLLZENTRUM (Hier änderst du deine Daten!)
+           ========================================================================= */
+
+        // 1. YouTube Channel IDs (Für das Auto-Load)
+        // Wie du die ID findest: Gehe auf deinen Kanal -> Teile den Kanal -> Kopiere die ID aus dem Link
+        // (Beginnt meistens mit "UC...")
+        const MAIN_CHANNEL_ID = "UC_DEINE_MAIN_CHANNEL_ID_HIER"; 
+        const RAMBOS_CHANNEL_ID = "UC_DEINE_RAMBOS_CHANNEL_ID_HIER";
+
+        // 2. Deine Stream-Woche (Füge neue Streams hinzu oder lösche alte)
+        const weeklyStreams = [
+            {
+                date: "Montag - 18:00",
+                title: "Super LUIGI Odyssey SUPERSTARMODE",
+                desc: "Das LEIDEN und der SCHMERZ gehen weiter...",
+                thumbnail: "T1.jpg" 
+            },
+            {
+                date: "Mittwoch - 18:00",
+                title: "Zelda BotW RELICS of the Past",
+                desc: "Hab durch den BotW Stream Bock bekommen, will mehr BotW content machen",
+                thumbnail: "T2.jpg" 
+            }
+        ];
+
+        /* =========================================================================
+           🚀 DIE TECHNIK (Ab hier musst du nichts mehr ändern)
+           ========================================================================= */
+
+        // --- Stream Schedule Rendern ---
+        function renderSchedule() {
+            const container = document.getElementById('schedule-container');
+            if (!container) return;
+
+            container.innerHTML = ''; // Container leeren
+            
+            weeklyStreams.forEach(stream => {
+                const card = document.createElement('div');
+                card.className = 'schedule-card';
+                card.innerHTML = `
+                    <img src="${stream.thumbnail}" alt="${stream.title}" class="schedule-thumb">
+                    <div class="schedule-info">
+                        <p class="schedule-date">${stream.date}</p>
+                        <h3 class="schedule-name">${stream.title}</h3>
+                        <p class="schedule-desc">${stream.desc}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- YouTube Auto-Fetcher ---
+        async function fetchLatestYouTube(channelId, elementId) {
+            // Stoppt, wenn keine ID eingetragen ist (z.B. noch der Standardtext drinsteht)
+            if(channelId.includes("DEINE_")) return; 
+
+            try {
+                // Wir nutzen rss2json, um den YT-Feed ohne API-Key zu lesen
+                const rssUrl = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
+                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    const latestVideo = data.items[0];
+                    const videoId = latestVideo.link.split('v=')[1];
+                    
+                    const card = document.getElementById(elementId);
+                    if(card) {
+                        // Link aktualisieren
+                        const linkEl = card.querySelector('.thumbnail-wrapper');
+                        linkEl.href = latestVideo.link;
+                        
+                        // Thumbnail aktualisieren (maxresdefault ist höchste Quali)
+                        const imgEl = card.querySelector('img');
+                        imgEl.src = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+                        
+                        // Titel aktualisieren
+                        const titleEl = card.querySelector('.link-meta');
+                        titleEl.innerText = latestVideo.title.substring(0, 40) + "..."; 
+                    }
+                }
+            } catch (error) {
+                console.error("YouTube Fetch Fehler:", error);
+            }
+        }
+
+        // --- Twitch Live Status ---
+        function setTwitchLive(isLive) {
+            if (!isLive) return;
+            
+            const linksGrid = document.querySelector('.links-grid');
+            const twitchCard = document.getElementById('twitch-link');
+            const titleElement = twitchCard.querySelector('.link-title');
+            const metaElement = document.getElementById('twitch-meta');
+
+            if (linksGrid && twitchCard) {
+                linksGrid.prepend(twitchCard);
+                twitchCard.classList.add('is-live');
+                if (!twitchCard.querySelector('.live-badge')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'live-badge';
+                    badge.innerText = 'Live';
+                    titleElement.appendChild(badge);
+                }
+                metaElement.innerText = "Ich bin gerade live! Komm rein 💜";
+                metaElement.style.color = "#ffffff";
+            }
+        }
+
+        async function checkTwitchStatus() {
+            try {
+                const username = 'ir_Fabi'; 
+                const response = await fetch(`https://decapi.me/twitch/uptime/${username}`);
+                const data = await response.text();
+                
+                // Prüft ob in der Antwort NICHT das Wort "offline" steht
+                const isLive = !data.includes('offline'); 
+                
+                setTwitchLive(isLive);
+            } catch (error) {
+                console.error("Twitch Status Fehler:", error);
+            }
+        }
+
+        // --- Alles starten, wenn die Seite lädt ---
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSchedule();
+            checkTwitchStatus();
+            
+            // YouTube Update aktivieren
+            fetchLatestYouTube(MAIN_CHANNEL_ID, 'yt-main-card');
+            fetchLatestYouTube(RAMBOS_CHANNEL_ID, 'yt-rambos-card');
+        });
+    </script>
 </body>
 </html>
