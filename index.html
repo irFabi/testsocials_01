@@ -587,6 +587,7 @@
         }
 
         @media (max-width: 800px) {
+            /* 1. Performance tweaks (Keep these as you had them) */
             body {
                 animation: none !important;
                 background: var(--bg-deep) !important;
@@ -598,7 +599,54 @@
                 animation: none !important;
                 opacity: 0.3;
             }
-            /* Touch-Support */
+
+            /* 2. Scale down the profile section slightly to save screen real estate */
+            .avatar-container {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 1rem;
+            }
+            .username {
+                font-size: 1.8rem;
+            }
+            .bio {
+                font-size: 0.95rem;
+                padding: 0 1rem;
+            }
+
+            /* 3. Stack the stream cards vertically instead of squishing them side-by-side */
+            .schedule-scroll-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.2rem;
+            }
+            .schedule-card {
+                flex: none; /* Disables the side-by-side flex */
+                width: 100%;
+            }
+            .schedule-thumb {
+                height: auto;
+                aspect-ratio: 16/9; /* Ensures your T1/T2 images stay perfectly proportioned */
+            }
+
+            /* 4. Adjust Link Cards so they don't hit the absolute edges of the phone */
+            .link-card {
+                padding: 1rem 1.2rem;
+                border-radius: 14px;
+            }
+            .icon-wrapper {
+                width: 28px;
+                height: 28px;
+                margin-right: 1.2rem;
+            }
+            .link-title {
+                font-size: 1.05rem;
+            }
+            .link-meta {
+                font-size: 0.85rem;
+            }
+
+            /* 5. Touch-Support for the YouTube Video Expansion */
             .link-card.expandable-yt:focus,
             .link-card.expandable-yt:active {
                 max-height: 380px;
@@ -609,7 +657,7 @@
                 opacity: 1;
                 transform: scale(1) translateY(0);
                 padding-bottom: 56.25%;
-                margin-top: 1.2rem;
+                margin-top: 1rem;
             }
         }
     </style>
