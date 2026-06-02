@@ -85,6 +85,7 @@
             animation: dustFloat 60s linear infinite;
             z-index: 0;
             pointer-events: none;
+            will-change: transform; /* Hardware Acceleration */
         }
 
         @keyframes dustFloat {
@@ -92,18 +93,19 @@
             100% { transform: translate(150px, 150px) rotate(5deg); }
         }
 
+        /* 🚀 OPTIMIZATION: Removed filter: blur(100px) and used radial-gradient instead */
         .ambient-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
             z-index: 0;
             animation: floatOrbX 20s infinite ease-in-out alternate, floatOrbY 25s infinite ease-in-out alternate;
             pointer-events: none;
+            will-change: transform;
         }
         
-        .orb-1 { width: 500px; height: 500px; background: var(--orb-1); top: -150px; left: -200px; }
-        .orb-2 { width: 400px; height: 400px; background: var(--orb-2); bottom: -150px; right: -150px; animation-delay: -5s, -7s; }
-        .orb-3 { width: 450px; height: 450px; background: var(--orb-3); top: 20%; left: 40%; animation-delay: -10s, -3s; }
+        .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, var(--orb-1) 0%, transparent 60%); top: -150px; left: -200px; }
+        .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--orb-2) 0%, transparent 60%); bottom: -150px; right: -150px; animation-delay: -5s, -7s; }
+        .orb-3 { width: 550px; height: 550px; background: radial-gradient(circle, var(--orb-3) 0%, transparent 60%); top: 20%; left: 40%; animation-delay: -10s, -3s; }
 
         @keyframes floatOrbX {
             0% { transform: translateX(0); }
@@ -136,6 +138,7 @@
             margin: 0 auto 1.5rem;
             animation: floatAvatar 6s ease-in-out infinite; 
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .avatar {
@@ -149,17 +152,20 @@
             position: relative;
             z-index: 2;
             overflow: hidden; 
-            animation: liquidMorph 8s ease-in-out infinite; 
+            animation: liquidMorph 8s ease-in-out infinite;
+            will-change: border-radius;
         }
 
+        /* 🚀 OPTIMIZATION: Replaced blur() with box-shadow */
         .avatar-ring {
             position: absolute;
-            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
             background: linear-gradient(135deg, #00ff66, #009955, #aaff00);
             z-index: 1;
-            filter: blur(16px);
+            box-shadow: 0 0 20px 2px rgba(0, 255, 102, 0.4);
             opacity: 0.75;
-            animation: liquidMorph 6s ease-in-out infinite reverse, pulseGlow 4s ease-in-out infinite alternate;
+            border-radius: 50%;
+            animation: pulseGlow 4s ease-in-out infinite alternate;
         }
 
         @keyframes liquidMorph {
@@ -231,6 +237,7 @@
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .schedule-card:hover {
@@ -269,13 +276,14 @@
 
         .links-grid { display: flex; flex-direction: column; gap: 1.2rem; }
 
+        /* 🚀 OPTIMIZATION: Reduced blur for performance */
         .link-card {
             display: flex; 
             align-items: center; 
             padding: 1.25rem 1.5rem;
             background: var(--glass-bg); 
-            backdrop-filter: blur(32px); 
-            -webkit-backdrop-filter: blur(32px);
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border); 
             border-radius: 16px;
             text-decoration: none; 
@@ -286,22 +294,25 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             opacity: 0; transform: translateY(30px) scale(0.95);
             animation: springUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            will-change: transform;
         }
 
+        /* 🚀 OPTIMIZATION: Animating transform instead of left */
         .link-card::before {
             content: "";
             position: absolute;
-            top: 0; left: -150%; width: 50%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: skewX(-25deg);
+            transform: skewX(-25deg) translateX(-150%);
             animation: shimmerSweep 7s infinite;
             pointer-events: none;
             z-index: 1;
+            will-change: transform;
         }
 
         @keyframes shimmerSweep {
-            0%, 70% { left: -150%; } 
-            100% { left: 200%; }      
+            0%, 70% { transform: skewX(-25deg) translateX(-150%); } 
+            100% { transform: skewX(-25deg) translateX(150%); }      
         }
 
         .link-card:nth-child(1) { animation-delay: 0.1s; }
@@ -327,6 +338,7 @@
             align-items: stretch;
             max-height: 77px; 
             transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1), background 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+            will-change: max-height, transform;
         }
 
         .expandable-yt .card-header {
@@ -352,6 +364,7 @@
                         transform 0.6s cubic-bezier(0.33, 1, 0.68, 1), 
                         margin-top 0.6s cubic-bezier(0.33, 1, 0.68, 1),
                         padding-bottom 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+            will-change: transform, opacity, max-height;
         }
 
         .link-card.expandable-yt:hover {
@@ -405,6 +418,7 @@
             height: 100%;
             object-fit: cover; 
             transition: transform 0.5s ease, filter 0.5s ease;
+            will-change: transform;
         }
 
         .expandable-yt .hover-video {
@@ -418,6 +432,7 @@
             z-index: 1;
             transition: opacity 0.5s ease;
             pointer-events: none;
+            will-change: opacity;
         }
 
         .expandable-yt .thumbnail-wrapper:hover img {
@@ -446,6 +461,7 @@
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             z-index: 3 !important;
+            will-change: transform;
         }
 
         .expandable-yt .play-button svg {
@@ -637,6 +653,7 @@
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 255, 128, 0.2);
             position: relative;
+            will-change: transform;
         }
 
         .modal-overlay.active .modal-content {
