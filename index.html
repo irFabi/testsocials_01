@@ -145,7 +145,6 @@
             width: 100%;
             height: 100%;
             background: #0a140d;
-            border: 2px solid rgba(0,255,128,0.4); 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -154,20 +153,11 @@
             overflow: hidden; 
             animation: liquidMorph 8s ease-in-out infinite;
             will-change: border-radius;
+            /* 🔥 HIER IST DER NEUE GLOW */
+            box-shadow: 0 0 30px rgba(0, 255, 128, 0.6), inset 0 0 15px rgba(0, 255, 128, 0.2);
         }
 
-        /* 🚀 OPTIMIZATION: Replaced blur() with box-shadow */
-        .avatar-ring {
-            position: absolute;
-            top: -4px; left: -4px; right: -4px; bottom: -4px;
-            background: linear-gradient(135deg, #00ff66, #009955, #aaff00);
-            z-index: 1;
-            box-shadow: 0 0 20px 2px rgba(0, 255, 102, 0.4);
-            opacity: 0.75;
-            border-radius: 50%;
-            animation: pulseGlow 4s ease-in-out infinite alternate;
-        }
-
+       
         @keyframes liquidMorph {
             0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
             50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
