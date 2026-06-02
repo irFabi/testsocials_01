@@ -43,7 +43,7 @@
             cursor: url('cursor.png'), auto;
         }
 
-        a, button, .link-card, .avatar-container {
+        a, button, .link-card, .avatar-container, .schedule-card {
             cursor: url('cursor.png'), pointer !important;
         }
 
@@ -135,7 +135,6 @@
             height: 135px;
             margin: 0 auto 1.5rem;
             animation: floatAvatar 6s ease-in-out infinite; 
-            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
@@ -188,7 +187,6 @@
             padding: 0 0.5rem; 
             font-weight: 500;
             text-shadow: 0 2px 4px rgba(0,0,0,0.9);
-            transition: color 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-block;
         }
 
@@ -233,7 +231,6 @@
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
-            cursor: pointer;
         }
 
         .schedule-card:hover {
@@ -387,7 +384,7 @@
         }
 
         /* =========================================
-           🎬 THUMBNAIL & PLAY BUTTON
+           🎬 THUMBNAIL & VIDEO HOVER
            ========================================= */
         .expandable-yt .thumbnail-wrapper {
             display: block;
@@ -410,8 +407,26 @@
             transition: transform 0.5s ease, filter 0.5s ease;
         }
 
+        .expandable-yt .hover-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
         .expandable-yt .thumbnail-wrapper:hover img {
             transform: scale(1.05);
+            filter: brightness(0.6);
+        }
+
+        .expandable-yt .thumbnail-wrapper:hover .hover-video {
+            opacity: 1;
             filter: brightness(0.6);
         }
 
@@ -430,7 +445,7 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            z-index: 2;
+            z-index: 3 !important;
         }
 
         .expandable-yt .play-button svg {
@@ -780,6 +795,7 @@
                 <div class="video-container">
                     <a href="https://youtu.be/nU3a948pgk8?t=33" target="_blank" class="thumbnail-wrapper">
                         <img src="https://i.ytimg.com/vi/nU3a948pgk8/maxresdefault.jpg" alt="YouTube Thumbnail">
+                        <video src="V1 - Fabi.mp4" class="hover-video" muted loop playsinline></video>
                         <div class="play-button">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                         </div>
@@ -802,6 +818,7 @@
                 <div class="video-container">
                     <a href="https://youtu.be/BK2giqfVJeo" target="_blank" class="thumbnail-wrapper">
                         <img src="https://i.ytimg.com/vi/BK2giqfVJeo/maxresdefault.jpg" alt="Internet Rambos Thumbnail">
+                        <video src="V1 - IR.mp4" class="hover-video" muted loop playsinline></video>
                         <div class="play-button">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                         </div>
@@ -895,31 +912,29 @@
 
     <script>
         /* =========================================================================
-           🛠️ DEIN KONTROLLZENTRUM (Hier änderst du deine Daten!)
+           🛠️ DEIN KONTROLLZENTRUM
            ========================================================================= */
 
-        // 1. YouTube Channel IDs (Für das Auto-Load)
         const MAIN_CHANNEL_ID = "UC_DEINE_MAIN_CHANNEL_ID_HIER"; 
         const RAMBOS_CHANNEL_ID = "UC_DEINE_RAMBOS_CHANNEL_ID_HIER";
 
-        // 2. Deine Stream-Woche (Füge neue Streams hinzu oder lösche alte)
         const weeklyStreams = [
             {
                 date: "Dienstag, 18:00",
-                title: "Minecraft Hardcore",
-                desc: "Wir versuchen den Enderdrachen zu besiegen (ich sterbe bestimmt)",
+                title: "Zelda RELICS of the Past!",
+                desc: "Hardcore BotW Mod, hatte nach dem BotW Stream am Samstag Bock bekommen lol)",
                 thumbnail: "T1.jpg" 
             },
             {
-                date: "Freitag, 20:00",
-                title: "Just Chatting & Reacts",
-                desc: "Wir schauen uns den neuen Internet Rambos Reddit an.",
+                date: "Donnerstag, 18:00",
+                title: "Bombenprank in LUIGI RPG",
+                desc: "Mario RPG aber mit LUIGI, Bomben, Dinos und was auch immer weiteres weirdes das Game auf uns wirft!",
                 thumbnail: "T2.jpg" 
             }
         ];
 
         /* =========================================================================
-           🚀 DIE TECHNIK (Ab hier musst du nichts mehr ändern)
+           🚀 DIE TECHNIK
            ========================================================================= */
 
         // --- Stream Schedule Rendern ---
@@ -927,7 +942,7 @@
             const container = document.getElementById('schedule-container');
             if (!container) return;
 
-            container.innerHTML = ''; // Container leeren
+            container.innerHTML = ''; 
             
             weeklyStreams.forEach(stream => {
                 const card = document.createElement('div');
@@ -941,9 +956,7 @@
                     </div>
                 `;
                 
-                // Add click event to open the modal
                 card.addEventListener('click', () => openModal(stream));
-                
                 container.appendChild(card);
             });
         }
@@ -964,13 +977,27 @@
             modal.classList.remove('active');
         }
 
-        // Close on X button click
         closeModalBtn.addEventListener('click', closeModal);
 
-        // Close when clicking on the blurred background
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
+            }
+        });
+
+        // --- Video Hover Preview Logic ---
+        document.querySelectorAll('.expandable-yt').forEach(card => {
+            const video = card.querySelector('.hover-video');
+            
+            if (video) {
+                card.addEventListener('mouseenter', () => {
+                    video.play();
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0; 
+                });
             }
         });
 
@@ -1041,7 +1068,7 @@
             }
         }
 
-        // --- Alles starten, wenn die Seite lädt ---
+        // --- Start ---
         document.addEventListener("DOMContentLoaded", () => {
             renderSchedule();
             checkTwitchStatus();
