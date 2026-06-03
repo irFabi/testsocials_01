@@ -140,17 +140,7 @@
             will-change: transform;
         }
 
-        .avatar-ring {
-            position: absolute;
-            top: -4px; left: -4px; right: -4px; bottom: -4px;
-            background: linear-gradient(135deg, #00ff66, #009955, #aaff00);
-            z-index: 1;
-            box-shadow: 0 0 20px 2px rgba(0, 255, 102, 0.4);
-            opacity: 0.75;
-            animation: liquidMorph 6s ease-in-out infinite reverse, pulseGlow 4s ease-in-out infinite alternate;
-            will-change: border-radius, opacity;
-        }
-
+        /* 🟢 Updated Avatar: No ring border, just a pulsing glow */
         .avatar {
             width: 100%;
             height: 100%;
@@ -161,9 +151,8 @@
             position: relative;
             z-index: 2;
             overflow: hidden; 
-            animation: liquidMorph 8s ease-in-out infinite;
-            will-change: border-radius;
-            box-shadow: 0 0 30px rgba(0, 255, 128, 0.6), inset 0 0 15px rgba(0, 255, 128, 0.2);
+            animation: liquidMorph 8s ease-in-out infinite, avatarGlow 4s ease-in-out infinite alternate;
+            will-change: border-radius, box-shadow;
         }
 
         @keyframes liquidMorph {
@@ -171,9 +160,16 @@
             50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
+        
         @keyframes floatAvatar {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
+        }
+
+        /* 🟢 New Avatar Glow Animation */
+        @keyframes avatarGlow {
+            0% { box-shadow: 0 0 20px rgba(0, 255, 128, 0.4), inset 0 0 10px rgba(0, 255, 128, 0.2); }
+            100% { box-shadow: 0 0 40px rgba(0, 255, 128, 0.8), inset 0 0 20px rgba(0, 255, 128, 0.4); }
         }
 
         .username {
@@ -778,7 +774,6 @@
     <div class="container">
         <div class="profile-card">
             <div class="avatar-container">
-                <div class="avatar-ring"></div>
                 <div class="avatar">
                     <img src="PP_2026_02.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" alt="Profile Pic">
                 </div>
@@ -935,7 +930,7 @@
 
         const weeklyStreams = [
             {
-                date: "Mittwoch, 18:00",
+                date: "Dienstag, 18:00",
                 title: "Zelda RELICS of the Past!",
                 desc: "Hardcore BotW Mod, hatte nach dem BotW Stream am Samstag Bock bekommen lol)",
                 thumbnail: "T1.jpg" 
