@@ -87,6 +87,436 @@
             padding: 3rem 2.5rem;
             border-radius: 28px;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 1px 1px rgba(255, 255, 255, 0.05) inset, 0 0 30px rgba(0, 255, 136, 0.1);
+            max-width: 480px; /* slightly widened to fit buttons */
+            width: 100%;
+            transform: translateZ(0);
+            opacity: 0;
+            animation: elasticEntrance 1.2s var(--ease-elastic) forwards;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            background: rgba(0, 242, 255, 0.08);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 7px 14px;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 5px var(--neon-cyan);
+            opacity: 0;
+            animation: bounceInDown 0.6s var(--ease-bounce) 0.3s forwards;
+        }
+
+        .rec-dot {
+            width: 9px;
+            height: 9px;
+            background-color: var(--alert-red);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px var(--alert-red);
+            animation: blinker 1.2s infinite;
+        }
+
+        /* Cover Section */
+        .cover-glow-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 2.5rem auto;
+            cursor: pointer;
+        }
+
+        .cover-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: wobbleCover 8s infinite var(--ease-elastic);
+            border-radius: 22px;
+            overflow: hidden; 
+            border: 2px solid rgba(0, 255, 136, 0.4);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
+            background-color: #000;
+            transform-origin: center bottom;
+            transition: transform 0.6s var(--ease-elastic), border-color 0.4s ease, box-shadow 0.6s var(--ease-bounce);
+        }
+
+        .cover-glow {
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: radial-gradient(circle at 30% 30%, var(--neon-green), transparent 60%),
+                        radial-gradient(circle at 70% 70%, var(--neon-cyan), transparent 60%);
+            filter: blur(35px);
+            opacity: 0.3;
+            z-index: 1;
+            border-radius: 26px;
+            transition: opacity 0.5s ease, filter 0.5s ease;
+        }
+
+        .cover-image {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        /* Hover Effects */
+        .cover-glow-container:hover .cover-wrapper { 
+            transform: translateY(-20px) scale(1.08) rotateX(8deg) rotateY(-5deg);
+            border-color: rgba(0, 255, 136, 1); 
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 1), 0 0 40px rgba(0, 255, 136, 0.4);
+        }
+        .cover-glow-container:hover .cover-glow { opacity: 0.7; filter: blur(20px); }
+        .cover-glow-container:hover .cover-image { transform: scale(1.1); filter: brightness(1.1); }
+
+        /* Typography */
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1.5px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            padding: 0 15px;
+        }
+
+        /* Audio Visualizer */
+        .audio-bars {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 5px;
+            height: 25px;
+            margin-bottom: 2rem;
+            padding-bottom: 5px;
+        }
+
+        .bar {
+            width: 3px;
+            background-color: var(--neon-green);
+            border-radius: 3px;
+            opacity: 0.9;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            animation: chaoticBounce 0.4s infinite ease-in-out alternate;
+        }
+        .bar:nth-child(1) { height: 40%; animation-delay: -0.1s; background-color: var(--neon-cyan); }
+        .bar:nth-child(2) { height: 90%; animation-delay: -0.4s; }
+        .bar:nth-child(3) { height: 100%; animation-delay: -0.0s; background-color: var(--neon-cyan); }
+        .bar:nth-child(4) { height: 60%; animation-delay: -0.3s; }
+        .bar:nth-child(5) { height: 30%; animation-delay: -0.2s; }
+
+        /* Progress Bar */
+        .fake-progress {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            margin-bottom: 1.8rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .fake-progress-fill {
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 3px;
+            box-shadow: 0 0 15px rgba(0, 255, 180, 0.6);
+        }
+
+        /* Buttons & Actions */
+        .action-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.9rem 1.8rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.5s var(--ease-bounce);
+            cursor: pointer;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid rgba(0, 255, 136, 0.4);
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--neon-green);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.3);
+            text-shadow: 0 0 5px #fff;
+        }
+
+        /* Spotify Button */
+        .btn-spotify {
+            background: rgba(30, 215, 96, 0.1);
+            border: 2px solid rgba(30, 215, 96, 0.4);
+            color: #ffffff;
+        }
+        .btn-spotify:hover {
+            background: rgba(30, 215, 96, 0.2);
+            border-color: #1ed760;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(30, 215, 96, 0.3);
+            text-shadow: 0 0 5px #fff;
+        }
+
+        /* YouTube Button */
+        .btn-youtube {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.4);
+            color: #ffffff;
+        }
+        .btn-youtube:hover {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .btn:active {
+            transform: translateY(-2px) scale(0.96);
+            transition-duration: 0.1s;
+        }
+
+        /* Hidden/Reveal States */
+        #listen-btn {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #listen-btn.hidden {
+            display: none;
+        }
+        
+        .platform-options {
+            display: none;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s var(--ease-bounce);
+        }
+        .platform-options.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animations */
+        @keyframes elasticEntrance {
+            0% { opacity: 0; transform: translateY(60px) scale(0.7) rotateX(10deg); filter: blur(5px); }
+            50% { opacity: 1; transform: translateY(-10px) scale(1.03) rotateX(0deg); filter: blur(0); }
+            70% { transform: translateY(5px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes chaoticBounce {
+            0%, 100% { transform: scaleY(1); }
+            20% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1.3); }
+            80% { transform: scaleY(0.7); }
+        }
+        @keyframes wobbleCover {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1.5deg); }
+            50% { transform: translateY(-12px) rotate(-1deg) scaleX(1.01); }
+            75% { transform: translateY(-6px) rotate(0.8deg); }
+        }
+        @keyframes floatOrbElastic {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.15); }
+        }
+        @keyframes bounceInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            60% { opacity: 1; transform: translateY(5px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes blinker { 
+            0%, 100% { opacity: 1; } 
+            50% { opacity: 0.1; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <div class="container">
+        
+        <div class="status-badge">
+            <div class="rec-dot"></div>
+            LIVE: Episode_01
+        </div>
+
+        <div class="cover-glow-container">
+            <div class="cover-glow"></div>
+            <div class="cover-wrapper">
+                <img src="2_mit_Hertz_v8.5.jpg" alt="Podcast Cover" class="cover-image">
+            </div>
+        </div>
+        
+        <h1>JETZT ONLINE!</h1>
+        <p>Das Geheimnis ist gelüftet! Die erste Episode ist da – hört jetzt rein.</p>
+        
+        <div class="audio-bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <div class="fake-progress">
+            <div class="fake-progress-fill"></div>
+        </div>
+        
+        <div class="action-btns">
+            <a href="index.html" class="btn btn-primary">← Back</a>
+            <button id="listen-btn" class="btn btn-primary" onclick="revealPlatforms()">Listen Now 🎧</button>
+            
+            <div id="platform-options" class="platform-options">
+                <a href="#" class="btn btn-spotify">Spotify 🟢</a>
+                <a href="#" class="btn btn-youtube">YouTube 🔴</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function revealPlatforms() {
+            const listenBtn = document.getElementById('listen-btn');
+            const platformContainer = document.getElementById('platform-options');
+            
+            // Hide the Listen button
+            listenBtn.classList.add('hidden');
+            
+            // Display the container so it enters the document flow
+            platformContainer.style.display = 'flex';
+            
+            // Slight delay before adding the active class to trigger the CSS transition
+            setTimeout(() => {
+                platformContainer.classList.add('active');
+            }, 10);
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast | Now Live</title>
+    <style>
+        :root {
+            /* 🟢 SATURATED GREEN & CYAN THEME */
+            --bg-base: #010403; 
+            --text-main: #ffffff;
+            --text-muted: #abb8b3;
+            --glass-bg: rgba(7, 24, 18, 0.75);
+            --glass-border: rgba(0, 255, 180, 0.2);
+            --neon-green: #00ff88;
+            --neon-cyan: #00f2ff;
+            --alert-red: #ff2a6d;
+            
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-elastic: cubic-bezier(0.68, -0.6, 0.27, 1.55);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-base);
+            overflow: hidden;
+            position: relative;
+            padding: 2rem 1rem;
+        }
+
+        /* 🌪 Atmosphere Grid */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, transparent 30%, #000 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Ambient Orbs */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            z-index: 0;
+            animation: floatOrbElastic 20s infinite var(--ease-elastic);
+            mix-blend-mode: screen; 
+            pointer-events: none;
+        }
+        .orb-1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,255,136,0.2) 0%, transparent 70%); top: -10%; left: -10%; }
+        .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,242,255,0.15) 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -7s; }
+
+        /* Main Container */
+        .container {
+            text-align: center;
+            z-index: 10;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            padding: 3rem 2.5rem;
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 1px 1px rgba(255, 255, 255, 0.05) inset, 0 0 30px rgba(0, 255, 136, 0.1);
             max-width: 460px;
             width: 100%;
             transform: translateZ(0);
