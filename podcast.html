@@ -87,7 +87,7 @@
             padding: 3rem 2.5rem;
             border-radius: 28px;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 1px 1px rgba(255, 255, 255, 0.05) inset, 0 0 30px rgba(0, 255, 136, 0.1);
-            max-width: 480px; /* slightly widened to fit buttons */
+            max-width: 480px; 
             width: 100%;
             transform: translateZ(0);
             opacity: 0;
@@ -112,6 +112,10 @@
             text-shadow: 0 0 5px var(--neon-cyan);
             opacity: 0;
             animation: bounceInDown 0.6s var(--ease-bounce) 0.3s forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
 
         .rec-dot {
@@ -121,6 +125,7 @@
             border-radius: 50%;
             box-shadow: 0 0 10px 2px var(--alert-red);
             animation: blinker 1.2s infinite;
+            flex-shrink: 0;
         }
 
         /* Cover Section */
@@ -179,12 +184,17 @@
 
         /* Typography */
         h1 {
-            font-size: 2.3rem;
+            font-size: 1.8rem; /* Scaled down slightly to fit episode titles */
             font-weight: 900;
             margin-bottom: 0.5rem;
-            letter-spacing: -1.5px;
+            letter-spacing: -1px;
             color: #ffffff;
             text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.2;
         }
 
         p {
@@ -374,7 +384,7 @@
         
         <div class="status-badge">
             <div class="rec-dot"></div>
-            LIVE: Episode_01
+            LIVE:&nbsp;<span id="badge-text">Lade Episode...</span>
         </div>
 
         <div class="cover-glow-container">
@@ -384,8 +394,8 @@
             </div>
         </div>
         
-        <h1>JETZT ONLINE!</h1>
-        <p>Das Geheimnis ist gelüftet! Die erste Episode ist da – hört jetzt rein.</p>
+        <h1 id="episode-title">Suche neueste Folge...</h1>
+        <p>Das Geheimnis ist gelüftet! Die neueste Episode ist da – hört jetzt rein.</p>
         
         <div class="audio-bars">
             <div class="bar"></div>
@@ -404,28 +414,61 @@
             <button id="listen-btn" class="btn btn-primary" onclick="revealPlatforms()">Listen Now 🎧</button>
             
             <div id="platform-options" class="platform-options">
-                <a href="#" class="btn btn-spotify">Spotify 🟢</a>
-                <a href="#" class="btn btn-youtube">YouTube 🔴</a>
+                <a href="#" class="btn btn-spotify" id="spotify-link">Spotify 🟢</a>
+                <a href="#" class="btn btn-youtube" id="youtube-link">YouTube 🔴</a>
             </div>
         </div>
     </div>
 
     <script>
+        // --- BUTTON REVEAL LOGIC ---
         function revealPlatforms() {
             const listenBtn = document.getElementById('listen-btn');
             const platformContainer = document.getElementById('platform-options');
             
-            // Hide the Listen button
             listenBtn.classList.add('hidden');
-            
-            // Display the container so it enters the document flow
             platformContainer.style.display = 'flex';
             
-            // Slight delay before adding the active class to trigger the CSS transition
             setTimeout(() => {
                 platformContainer.classList.add('active');
             }, 10);
         }
+
+        // --- DYNAMIC EPISODE FETCHING ---
+        // 👇 PASTE YOUR RSS FEED URL HERE 👇
+        const rssUrl = 'https://anchor.fm/s/your-feed-id/podcast/rss'; 
+        
+        // We use rss2json to bypass browser CORS blocks and easily read the XML as JSON
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok' && data.items.length > 0) {
+                    // Grab the very first item (the newest episode)
+                    const latestEpisode = data.items[0];
+                    const episodeName = latestEpisode.title;
+                    
+                    // Update the big Header text
+                    document.getElementById('episode-title').innerText = episodeName;
+                    
+                    // Update the little glowing badge (shorten it if it's too long)
+                    let badgeName = episodeName;
+                    if(badgeName.length > 20) {
+                        badgeName = badgeName.substring(0, 18) + '...';
+                    }
+                    document.getElementById('badge-text').innerText = badgeName;
+                    
+                    // Optional: If you want to automatically link the Spotify button to the exact episode link:
+                    // document.getElementById('spotify-link').href = latestEpisode.link; 
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching podcast data:", error);
+                // Fallback text if the fetch fails or adblocker blocks it
+                document.getElementById('episode-title').innerText = "JETZT ONLINE!";
+                document.getElementById('badge-text').innerText = "Episode_01";
+            });
     </script>
 </body>
 </html>
